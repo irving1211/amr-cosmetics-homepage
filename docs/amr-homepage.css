@@ -558,8 +558,8 @@ a:hover .amr-arrow { transform: translateX(4px); }
   color: var(--amr-paper-warm);
 }
 
-.amr-section--split .amr-eyebrow { color: rgba(250, 247, 244, 0.6); }
-.amr-section--split .amr-section-head__subline { color: rgba(250, 247, 244, 0.78); }
+.amr-section--split .amr-eyebrow { color: rgba(250, 247, 244, 0.92); }
+.amr-section--split .amr-section-head__subline { color: rgba(250, 247, 244, 0.92); }
 
 .amr-split__display {
   font-size: clamp(3rem, 1.5rem + 6vw, 6rem);
@@ -606,8 +606,8 @@ a:hover .amr-arrow { transform: translateX(4px); }
 }
 
 .amr-split__headline { color: var(--amr-paper-warm); font-size: clamp(1.625rem, 1.2rem + 1.4vw, 2.25rem); }
-.amr-split__body { color: rgba(250, 247, 244, 0.85); max-width: 44ch; }
-.amr-split__cta { color: var(--amr-paper-warm); margin-top: 8px; border-bottom-color: rgba(250, 247, 244, 0.4); }
+.amr-split__body { color: rgba(250, 247, 244, 0.92); max-width: 44ch; }
+.amr-split__cta { color: var(--amr-paper-warm); margin-top: 8px; border-bottom-color: rgba(250, 247, 244, 0.7); }
 .amr-split__cta:hover { border-bottom-color: var(--amr-paper-warm); }
 
 
@@ -881,7 +881,7 @@ a:hover .amr-arrow { transform: translateX(4px); }
   max-width: 720px;
 }
 
-.amr-email-cta__eyebrow { color: rgba(250, 247, 244, 0.7); }
+.amr-email-cta__eyebrow { color: rgba(250, 247, 244, 0.85); }
 
 .amr-email-cta__headline {
   color: var(--amr-paper-warm);
@@ -889,7 +889,7 @@ a:hover .amr-arrow { transform: translateX(4px); }
 }
 
 .amr-email-cta__subline {
-  color: rgba(250, 247, 244, 0.85);
+  color: rgba(250, 247, 244, 0.92);
   max-width: 52ch;
 }
 
@@ -900,7 +900,7 @@ a:hover .amr-arrow { transform: translateX(4px); }
   align-items: stretch;
   gap: 8px;
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(250, 247, 244, 0.3);
+  border: 1px solid rgba(250, 247, 244, 0.55);
   border-radius: var(--amr-radius-sm);
   padding: 4px 4px 4px 16px;
   transition: border-color var(--amr-dur) var(--amr-ease);
@@ -921,7 +921,7 @@ a:hover .amr-arrow { transform: translateX(4px); }
   min-height: 44px;
 }
 
-.amr-email-cta__input::placeholder { color: rgba(250, 247, 244, 0.55); }
+.amr-email-cta__input::placeholder { color: rgba(250, 247, 244, 0.78); }
 
 .amr-email-cta__submit {
   padding: 12px 22px;
@@ -932,7 +932,7 @@ a:hover .amr-arrow { transform: translateX(4px); }
   margin-top: 14px;
   font-size: 0.75rem;
   letter-spacing: 0.04em;
-  color: rgba(250, 247, 244, 0.55);
+  color: rgba(250, 247, 244, 0.78);
 }
 
 .amr-email-cta__success,

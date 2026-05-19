@@ -211,7 +211,7 @@
     .amr-footer__legal a { color: inherit; text-decoration: none; margin-left: 16px; }
     .amr-footer__legal a:hover { color: var(--amr-cocoa); }
 
-    /* Display headlines in display serif still — and force AMR mark over those when needed */
+    /* Display headlines in display serif still */
     .amr-display, .amr-h2, .amr-h3, .amr-why__title,
     .amr-product-card__title, .amr-routine__title, .amr-category-tile__label,
     .amr-review__quote, .amr-split__headline, .amr-hero-split__headline,
@@ -219,8 +219,116 @@
       font-family: var(--amr-font-display);
     }
 
-    /* Image cards crisp on real photos */
-    .amr-product-card__media img { object-fit: cover; padding: 0; }
+    /* Product cards — restore proper studio fit (product on beige stage with padding) */
+    .amr-product-card__media { background: var(--amr-paper-warm); }
+    .amr-product-card__media img {
+      object-fit: contain !important;
+      padding: clamp(20px, 3vw, 40px) !important;
+    }
+
+    /* ===== Contrast fixes — bump opacities on cocoa backgrounds ===== */
+    .amr-section--split .amr-eyebrow,
+    .amr-section--email-cta .amr-email-cta__eyebrow {
+      color: rgba(250, 247, 244, 0.85) !important;
+    }
+    .amr-section--split .amr-section-head__subline,
+    .amr-section--split .amr-split__body,
+    .amr-section--email-cta .amr-email-cta__subline {
+      color: rgba(250, 247, 244, 0.92) !important;
+    }
+    .amr-section--email-cta .amr-email-cta__micro,
+    .amr-section--email-cta .amr-email-cta__input::placeholder {
+      color: rgba(250, 247, 244, 0.75) !important;
+    }
+    .amr-section--split .amr-split__cta { border-bottom-color: rgba(250, 247, 244, 0.6) !important; }
+    /* Email field stronger contrast on cocoa */
+    .amr-section--email-cta .amr-email-cta__field {
+      background: rgba(255,255,255,0.10) !important;
+      border: 1.5px solid rgba(250, 247, 244, 0.55) !important;
+    }
+    .amr-section--email-cta .amr-email-cta__field:focus-within {
+      border-color: var(--amr-paper-warm) !important;
+    }
+
+    /* ===== Section spacing normalization ===== */
+    .amr-section,
+    section.amr {
+      padding-top: 96px;
+      padding-bottom: 96px;
+    }
+    @media (max-width: 768px) {
+      .amr-section,
+      section.amr { padding-top: 64px; padding-bottom: 64px; }
+    }
+    .amr-hero-split { padding: 0; }
+
+    /* ===== Hero CTA — explicit mobile stack ===== */
+    .amr-hero-split__ctas {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+      margin-top: 8px;
+    }
+    .amr-hero-split__cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    @media (max-width: 600px) {
+      .amr-hero-split__ctas { flex-direction: column; align-items: flex-start; gap: 16px; width: 100%; }
+      .amr-hero-split__ctas .amr-button { width: 100%; max-width: 320px; }
+      .amr-hero-split__cta-secondary { gap: 14px; }
+    }
+
+    /* ===== Gallery — curated editorial collage (4 images, unified) ===== */
+    .amr-gallery__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(12px, 1.5vw, 20px);
+      max-width: 1200px;
+      margin-inline: auto;
+    }
+    @media (min-width: 900px) {
+      .amr-gallery__grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .amr-gallery__tile {
+      aspect-ratio: 4 / 5 !important;
+      height: auto !important;
+      background: var(--amr-cocoa);
+      border-radius: var(--amr-radius-sm);
+      overflow: hidden;
+      grid-row: auto !important;
+    }
+    .amr-gallery__tile img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center;
+      transition: transform var(--amr-dur-slow) var(--amr-ease);
+    }
+    .amr-gallery__tile:hover img { transform: scale(1.04); }
+
+    /* ===== Reviews — minimal empty state (just one line) ===== */
+    .amr-reviews-minimal {
+      background: var(--amr-paper-warm);
+      text-align: center;
+    }
+    .amr-reviews-minimal__inner {
+      max-width: 540px;
+      margin: 0 auto;
+      padding: clamp(20px, 3vw, 40px) clamp(20px, 5vw, 40px);
+    }
+    .amr-reviews-minimal__note {
+      font-family: var(--amr-font-display);
+      font-style: italic;
+      font-size: clamp(1rem, 0.9rem + 0.4vw, 1.125rem);
+      color: var(--amr-ink-mute);
+      margin: 16px 0 0;
+      line-height: 1.5;
+    }
+
+    /* ===== Footer adjustments ===== */
+    .amr-footer__legal a { transition: color .2s; }
 
     /* Subtle prefers-reduced-motion already handled in main CSS */
   </style>
@@ -236,18 +344,18 @@
       <button class="amr-nav__burger" type="button" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false" data-amr-drawer-open>
         <span></span><span></span><span></span>
       </button>
-      <a href="#categories">Shop</a>
-      <a href="#categories">Hair</a>
-      <a href="#categories">Lip</a>
-      <a href="#featured">All</a>
+      <a href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener">Shop</a>
+      <a href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener">Hair</a>
+      <a href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener">Lip</a>
+      <a href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener">All</a>
     </nav>
     <a href="#top" aria-label="AMR Cosmetics — home">
       <img src="images/amr-logo.png" alt="AMR Cosmetics" class="amr-logo-img amr-logo-img--md" width="568" height="270">
     </a>
     <nav class="amr-nav__right" aria-label="Account navigation">
-      <a href="#" aria-label="Search">Search</a>
-      <a href="#" aria-label="Account">Account</a>
-      <a class="amr-nav__cart" href="#" aria-label="Cart">Cart (0)</a>
+      <a href="https://amr-cosmetics-2.myshopify.com/search" target="_blank" rel="noopener" aria-label="Search">Search</a>
+      <a href="https://amr-cosmetics-2.myshopify.com/account" target="_blank" rel="noopener" aria-label="Account">Account</a>
+      <a class="amr-nav__cart" href="https://amr-cosmetics-2.myshopify.com/cart" target="_blank" rel="noopener" aria-label="Cart">Cart</a>
     </nav>
   </header>
 
@@ -284,10 +392,12 @@
         <h1 id="hero-h" class="amr-hero-split__headline">Where healthy hair meets glossy lips.</h1>
         <p class="amr-body amr-hero-split__sub">Polished essentials for the everyday — soft on skin, kind to hair, made for shine.</p>
         <div class="amr-hero-split__ctas">
-          <a href="#featured" class="amr-button amr-button--primary">Shop Bestsellers</a>
-          <a href="#categories" class="amr-link amr-link--understated">Hair Care</a>
-          <span aria-hidden="true" style="color: var(--amr-ink-mute);">·</span>
-          <a href="#categories" class="amr-link amr-link--understated">Lip Care</a>
+          <a href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener" class="amr-button amr-button--primary">Shop Bestsellers</a>
+          <div class="amr-hero-split__cta-secondary">
+            <a href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener" class="amr-link amr-link--understated">Hair Care</a>
+            <span aria-hidden="true" style="color: var(--amr-ink-mute);">·</span>
+            <a href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener" class="amr-link amr-link--understated">Lip Care</a>
+          </div>
         </div>
       </div>
       <div class="amr-hero-split__media">
@@ -316,7 +426,7 @@
         </header>
         <div class="amr-categories__grid">
 
-          <a class="amr-category-tile" href="#featured">
+          <a class="amr-category-tile" href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener">
             <div class="amr-category-tile__media">
               <img src="images/hair-mask-alt.jpg" alt="Hair Care" loading="lazy">
             </div>
@@ -327,7 +437,7 @@
             </div>
           </a>
 
-          <a class="amr-category-tile" href="#featured">
+          <a class="amr-category-tile" href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener">
             <div class="amr-category-tile__media">
               <img src="images/editorial-gloss.jpg" alt="Lip Care" loading="lazy">
             </div>
@@ -338,7 +448,7 @@
             </div>
           </a>
 
-          <a class="amr-category-tile" href="#featured">
+          <a class="amr-category-tile" href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener">
             <div class="amr-category-tile__media">
               <img src="images/bundle.jpg" alt="The AMR Bundle" loading="lazy">
             </div>
@@ -364,7 +474,7 @@
 
         <div class="amr-product-grid amr-product-grid--cols-4">
 
-          <a class="amr-product-card amr-product-card--portrait" href="#">
+          <a class="amr-product-card amr-product-card--portrait" href="https://amr-cosmetics-2.myshopify.com/products/beauty-example-product-4" target="_blank" rel="noopener">
             <div class="amr-product-card__media">
               <img class="amr-product-card__image amr-product-card__image--primary" src="images/hair-oil.jpg" alt="Hair Oil (Growth & Health)" loading="lazy">
             </div>
@@ -375,7 +485,7 @@
             </div>
           </a>
 
-          <a class="amr-product-card amr-product-card--portrait" href="#">
+          <a class="amr-product-card amr-product-card--portrait" href="https://amr-cosmetics-2.myshopify.com/products/hair-mask" target="_blank" rel="noopener">
             <div class="amr-product-card__media">
               <img class="amr-product-card__image amr-product-card__image--primary" src="images/hair-mask.jpg" alt="Hair Mask" loading="lazy">
               <img class="amr-product-card__image amr-product-card__image--secondary" src="images/hair-mask-alt.jpg" alt="" loading="lazy">
@@ -387,7 +497,7 @@
             </div>
           </a>
 
-          <a class="amr-product-card amr-product-card--portrait" href="#">
+          <a class="amr-product-card amr-product-card--portrait" href="https://amr-cosmetics-2.myshopify.com/products/pink-gloss" target="_blank" rel="noopener">
             <div class="amr-product-card__media">
               <img class="amr-product-card__image amr-product-card__image--primary" src="images/pink-gloss.jpg" alt="Pink Gloss" loading="lazy">
             </div>
@@ -398,7 +508,7 @@
             </div>
           </a>
 
-          <a class="amr-product-card amr-product-card--portrait" href="#">
+          <a class="amr-product-card amr-product-card--portrait" href="https://amr-cosmetics-2.myshopify.com/products/ph-liptone-wand-me" target="_blank" rel="noopener">
             <div class="amr-product-card__media">
               <img class="amr-product-card__image amr-product-card__image--primary" src="images/ph-liptone.jpg" alt="pH LipTone (Wand)" loading="lazy">
             </div>
@@ -414,7 +524,7 @@
         <!-- Second row: more real products + the bundle -->
         <div class="amr-product-grid amr-product-grid--cols-4" style="margin-top: clamp(24px, 3vw, 40px);">
 
-          <a class="amr-product-card amr-product-card--portrait" href="#">
+          <a class="amr-product-card amr-product-card--portrait" href="https://amr-cosmetics-2.myshopify.com/products/beauty-example-product-1" target="_blank" rel="noopener">
             <div class="amr-product-card__media">
               <img class="amr-product-card__image amr-product-card__image--primary" src="images/crystal-clear.jpg" alt="Crystal Clear (Wand)" loading="lazy">
             </div>
@@ -425,7 +535,7 @@
             </div>
           </a>
 
-          <a class="amr-product-card amr-product-card--portrait" href="#">
+          <a class="amr-product-card amr-product-card--portrait" href="https://amr-cosmetics-2.myshopify.com/products/berry-glossy-squeeze-me" target="_blank" rel="noopener">
             <div class="amr-product-card__media">
               <img class="amr-product-card__image amr-product-card__image--primary" src="images/berry-squeeze.jpg" alt="Berry Glossy (Squeeze)" loading="lazy">
             </div>
@@ -436,7 +546,7 @@
             </div>
           </a>
 
-          <a class="amr-product-card amr-product-card--portrait" href="#">
+          <a class="amr-product-card amr-product-card--portrait" href="https://amr-cosmetics-2.myshopify.com/products/mocha-wand-me" target="_blank" rel="noopener">
             <div class="amr-product-card__media">
               <img class="amr-product-card__image amr-product-card__image--primary" src="images/mocha-wand.jpg" alt="Mocha (Wand)" loading="lazy">
             </div>
@@ -447,7 +557,7 @@
             </div>
           </a>
 
-          <a class="amr-product-card amr-product-card--portrait" href="#">
+          <a class="amr-product-card amr-product-card--portrait" href="https://amr-cosmetics-2.myshopify.com/products/amr-bundle" target="_blank" rel="noopener">
             <div class="amr-product-card__media">
               <img class="amr-product-card__image amr-product-card__image--primary" src="images/bundle.jpg" alt="AMR Bundle!" loading="lazy">
             </div>
@@ -461,7 +571,7 @@
         </div>
 
         <div class="amr-featured__view-all">
-          <a class="amr-link amr-link--understated" href="#">View All Products <span class="amr-arrow">&rarr;</span></a>
+          <a class="amr-link amr-link--understated" href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener">View All Products <span class="amr-arrow">&rarr;</span></a>
         </div>
       </div>
     </section>
@@ -512,7 +622,7 @@
             <p class="amr-eyebrow amr-split__eyebrow">LIPS</p>
             <h3 class="amr-h2 amr-split__headline">A soft, wearable shine.</h3>
             <p class="amr-body amr-split__body">Glosses and lip tones made for everyday wear — the kind you reach for without thinking.</p>
-            <a class="amr-link amr-link--understated amr-split__cta" href="#featured">Shop Lip Care <span class="amr-arrow">&rarr;</span></a>
+            <a class="amr-link amr-link--understated amr-split__cta" href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener">Shop Lip Care <span class="amr-arrow">&rarr;</span></a>
           </div>
         </article>
         <article class="amr-split__panel amr-split__panel--right">
@@ -523,37 +633,18 @@
             <p class="amr-eyebrow amr-split__eyebrow">HAIR</p>
             <h3 class="amr-h2 amr-split__headline">Care that feels healthy.</h3>
             <p class="amr-body amr-split__body">Oils and masks shaped around how hair actually feels — soft to the touch, light on the scalp.</p>
-            <a class="amr-link amr-link--understated amr-split__cta" href="#featured">Shop Hair Care <span class="amr-arrow">&rarr;</span></a>
+            <a class="amr-link amr-link--understated amr-split__cta" href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener">Shop Hair Care <span class="amr-arrow">&rarr;</span></a>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- ============ 07 REVIEWS — honest placeholder ============ -->
-    <section class="amr amr-reviews amr-reviews-empty" aria-labelledby="rev-h">
-      <div class="amr-container">
-        <header class="amr-section-head amr-section-head--center">
-          <p class="amr-eyebrow">REVIEWS</p>
-          <h2 id="rev-h" class="amr-h2">Loved by the AMR community.</h2>
-        </header>
-        <div class="amr-reviews__grid" aria-label="Reviews placeholder — awaiting real customer reviews">
-          <figure class="amr-review amr-review--placeholder">
-            <div class="amr-review__stars" aria-hidden="true"><span>★ ★ ★ ★ ★</span></div>
-            <blockquote class="amr-review__quote"><p>Real customer review will appear here once Judge.me or Loox is connected.</p></blockquote>
-            <figcaption class="amr-review__author">— Customer name</figcaption>
-          </figure>
-          <figure class="amr-review amr-review--placeholder">
-            <div class="amr-review__stars" aria-hidden="true"><span>★ ★ ★ ★ ★</span></div>
-            <blockquote class="amr-review__quote"><p>Real customer review will appear here once Judge.me or Loox is connected.</p></blockquote>
-            <figcaption class="amr-review__author">— Customer name</figcaption>
-          </figure>
-          <figure class="amr-review amr-review--placeholder">
-            <div class="amr-review__stars" aria-hidden="true"><span>★ ★ ★ ★ ★</span></div>
-            <blockquote class="amr-review__quote"><p>Real customer review will appear here once Judge.me or Loox is connected.</p></blockquote>
-            <figcaption class="amr-review__author">— Customer name</figcaption>
-          </figure>
-        </div>
-        <p class="amr-reviews-empty__note">Reviews section is structured and ready — once a reviews app is installed, real customer quotes populate here automatically.</p>
+    <!-- ============ 07 REVIEWS — minimal "not live yet" empty state ============ -->
+    <section class="amr amr-reviews-minimal" aria-labelledby="rev-h">
+      <div class="amr-reviews-minimal__inner">
+        <p class="amr-eyebrow">REVIEWS</p>
+        <h2 id="rev-h" class="amr-h2" style="margin-top:14px;">Loved by the AMR community.</h2>
+        <p class="amr-reviews-minimal__note">Customer reviews will live here once the AMR community starts sharing.</p>
       </div>
     </section>
 
@@ -566,12 +657,10 @@
           <p class="amr-body amr-section-head__subline">Follow along on Instagram.</p>
         </header>
         <ul class="amr-gallery__grid" role="list">
-          <li class="amr-gallery__tile amr-gallery__tile--1"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/bundle.jpg" alt="AMR Bundle composition" loading="lazy"></a></li>
-          <li class="amr-gallery__tile amr-gallery__tile--2"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/editorial-gloss.jpg" alt="Gloss editorial" loading="lazy"></a></li>
-          <li class="amr-gallery__tile amr-gallery__tile--3"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/hair-oil.jpg" alt="Hair Oil still" loading="lazy"></a></li>
-          <li class="amr-gallery__tile amr-gallery__tile--4"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/editorial-berry.jpg" alt="Berry editorial" loading="lazy"></a></li>
-          <li class="amr-gallery__tile amr-gallery__tile--5"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/pink-gloss.jpg" alt="Pink Gloss still" loading="lazy"></a></li>
-          <li class="amr-gallery__tile amr-gallery__tile--6"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/editorial-mocha.jpg" alt="Mocha editorial" loading="lazy"></a></li>
+          <li class="amr-gallery__tile"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/editorial-gloss.jpg" alt="Gloss editorial" loading="lazy"></a></li>
+          <li class="amr-gallery__tile"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/editorial-berry.jpg" alt="Berry editorial" loading="lazy"></a></li>
+          <li class="amr-gallery__tile"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/editorial-mocha.jpg" alt="Mocha editorial" loading="lazy"></a></li>
+          <li class="amr-gallery__tile"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/bundle.jpg" alt="AMR Bundle editorial composition" loading="lazy"></a></li>
         </ul>
         <div class="amr-gallery__follow">
           <a class="amr-link amr-link--understated" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener">@amr.cosmeticss <span class="amr-arrow">&rarr;</span></a>
@@ -647,9 +736,9 @@
       <div class="amr-footer__col">
         <h4>Shop</h4>
         <ul>
-          <li><a href="#categories">Hair Care</a></li>
-          <li><a href="#categories">Lip Care</a></li>
-          <li><a href="#featured">All Products</a></li>
+          <li><a href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener">Hair Care</a></li>
+          <li><a href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener">Lip Care</a></li>
+          <li><a href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener">All Products</a></li>
         </ul>
       </div>
       <div class="amr-footer__col">
@@ -663,12 +752,14 @@
         <h4>Support</h4>
         <ul>
           <li><a href="#faq-h">FAQ</a></li>
-          <li><a href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener">Contact</a></li>
+          <li><a href="https://amr-cosmetics-2.myshopify.com/policies/shipping-policy" target="_blank" rel="noopener">Shipping</a></li>
+          <li><a href="https://amr-cosmetics-2.myshopify.com/policies/refund-policy" target="_blank" rel="noopener">Returns</a></li>
         </ul>
       </div>
       <div class="amr-footer__col">
         <h4>Connect</h4>
         <ul>
+          <li><a href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener">DM on Instagram</a></li>
           <li><a href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener">@amr.cosmeticss</a></li>
         </ul>
       </div>
@@ -676,8 +767,8 @@
     <div class="amr-footer__legal">
       <span>© AMR Cosmetics. All rights reserved.</span>
       <span>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
+        <a href="https://amr-cosmetics-2.myshopify.com/policies/privacy-policy" target="_blank" rel="noopener">Privacy</a>
+        <a href="https://amr-cosmetics-2.myshopify.com/policies/terms-of-service" target="_blank" rel="noopener">Terms</a>
       </span>
     </div>
   </footer>
