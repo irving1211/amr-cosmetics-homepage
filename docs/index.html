@@ -219,16 +219,135 @@
       font-family: var(--amr-font-display);
     }
 
-    /* Product cards — restore proper studio fit (product on beige stage with padding) */
-    .amr-product-card__media { background: var(--amr-paper-warm); }
+    /* Product cards — tighter stage, larger product, stronger title hierarchy */
+    .amr-product-card { gap: 18px; }
+    .amr-product-card__media {
+      background: var(--amr-paper-warm);
+      border-radius: 3px;
+      transition: transform .5s var(--amr-ease), box-shadow .4s var(--amr-ease);
+    }
     .amr-product-card__media img {
       object-fit: contain !important;
-      padding: clamp(20px, 3vw, 40px) !important;
+      padding: clamp(8px, 1.6vw, 20px) !important;
+      transition: transform .6s var(--amr-ease);
     }
-    /* Hover crossfade — only when the card actually HAS a secondary image */
+    .amr-product-card:hover .amr-product-card__media {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px -22px rgba(15,15,15,0.22);
+    }
+    .amr-product-card:hover .amr-product-card__image--primary { transform: scale(1.025); }
+    /* Hover crossfade — only when card has a secondary image */
     .amr-product-card:hover .amr-product-card__image--primary { opacity: 1 !important; }
-    .amr-product-card:has(.amr-product-card__image--secondary):hover .amr-product-card__image--primary { opacity: 0 !important; }
-    .amr-product-card:has(.amr-product-card__image--secondary):hover .amr-product-card__image--secondary { opacity: 1 !important; }
+    .amr-product-card:has(.amr-product-card__image--secondary):hover .amr-product-card__image--primary { opacity: 0 !important; transform: scale(1); }
+    .amr-product-card:has(.amr-product-card__image--secondary):hover .amr-product-card__image--secondary { opacity: 1 !important; transform: scale(1.025); }
+    .amr-product-card__caption { gap: 6px; padding-top: 2px; }
+    .amr-product-card__eyebrow { color: var(--amr-ink-mute); font-size: 0.6875rem; letter-spacing: 0.24em; }
+    .amr-product-card__title {
+      font-family: var(--amr-font-display);
+      font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem) !important;
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: -0.005em;
+    }
+    .amr-product-card__price {
+      font-size: 0.875rem;
+      letter-spacing: 0.06em;
+      color: var(--amr-ink);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    /* ===== Sticky header with scroll compression ===== */
+    .amr-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      transition: padding .3s var(--amr-ease), box-shadow .3s var(--amr-ease), background-color .3s var(--amr-ease);
+    }
+    body.is-scrolled .amr-nav {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      box-shadow: 0 1px 0 var(--amr-hairline);
+    }
+    .amr-logo-img--md { transition: width .3s var(--amr-ease); }
+    body.is-scrolled .amr-logo-img--md { width: clamp(96px, 11vw, 124px); }
+
+    /* ===== CTA polish — pressed + focus rings ===== */
+    .amr-button {
+      transition: background-color .25s var(--amr-ease), color .25s var(--amr-ease), transform .15s var(--amr-ease), box-shadow .25s var(--amr-ease), border-color .25s var(--amr-ease);
+      will-change: transform;
+    }
+    .amr-button:hover { transform: translateY(-1px); box-shadow: 0 8px 24px -12px rgba(15,15,15,0.4); }
+    .amr-button:active { transform: translateY(1px); box-shadow: 0 2px 8px -4px rgba(15,15,15,0.3); }
+    .amr-button:focus-visible {
+      outline: 2px solid var(--amr-gold);
+      outline-offset: 3px;
+    }
+    .amr-link--understated .amr-arrow { transition: transform .3s var(--amr-ease); }
+    .amr-link--understated:hover .amr-arrow { transform: translateX(6px); }
+
+    /* ===== Motion system — section reveal + staggered cards ===== */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal-target {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity .9s var(--amr-ease), transform .9s var(--amr-ease);
+        will-change: opacity, transform;
+      }
+      .reveal-target.is-visible { opacity: 1; transform: translateY(0); }
+
+      .stagger-target {
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity .7s var(--amr-ease), transform .7s var(--amr-ease);
+      }
+      .stagger-target.is-visible { opacity: 1; transform: translateY(0); }
+      .stagger-target.is-visible:nth-child(1) { transition-delay: 0ms; }
+      .stagger-target.is-visible:nth-child(2) { transition-delay: 80ms; }
+      .stagger-target.is-visible:nth-child(3) { transition-delay: 160ms; }
+      .stagger-target.is-visible:nth-child(4) { transition-delay: 240ms; }
+      .stagger-target.is-visible:nth-child(5) { transition-delay: 320ms; }
+      .stagger-target.is-visible:nth-child(6) { transition-delay: 400ms; }
+      .stagger-target.is-visible:nth-child(7) { transition-delay: 480ms; }
+      .stagger-target.is-visible:nth-child(8) { transition-delay: 560ms; }
+    }
+
+    /* ===== Category tile polish ===== */
+    .amr-category-tile { transition: transform .5s var(--amr-ease); }
+    .amr-category-tile__media { transition: box-shadow .5s var(--amr-ease); }
+    .amr-category-tile:hover .amr-category-tile__media {
+      box-shadow: 0 18px 50px -28px rgba(15,15,15,0.3);
+    }
+    .amr-category-tile__caption { transition: transform .4s var(--amr-ease); }
+
+    /* ===== Gallery tile polish ===== */
+    .amr-gallery__tile { transition: transform .5s var(--amr-ease), box-shadow .5s var(--amr-ease); }
+    .amr-gallery__tile:hover { box-shadow: 0 18px 50px -28px rgba(15,15,15,0.35); }
+    .amr-gallery__tile img { transition: transform .8s var(--amr-ease) !important; }
+    .amr-gallery__tile:hover img { transform: scale(1.05) !important; }
+
+    /* ===== Mobile footer tightening ===== */
+    @media (max-width: 768px) {
+      .amr-footer { padding: 56px 24px 40px; }
+      .amr-footer__grid { gap: 28px; }
+      .amr-footer__brand { margin-bottom: 4px; }
+      .amr-footer__col h4 { margin-bottom: 12px; font-size: 10px; }
+      .amr-footer__col ul { gap: 8px; }
+      .amr-footer__col a { font-size: 13px; }
+      .amr-footer__legal { font-size: 11px; gap: 12px; flex-direction: column; align-items: flex-start; }
+      .amr-footer__legal a { margin-left: 0; margin-right: 16px; }
+    }
+
+    /* ===== Mobile product cards — tighter spacing ===== */
+    @media (max-width: 600px) {
+      .amr-product-grid { gap: 16px 12px; }
+      .amr-product-card { gap: 12px; }
+      .amr-product-card__title { font-size: 1rem !important; }
+      .amr-product-card__price { font-size: 0.8125rem; }
+    }
 
     /* ===== Cocoa-background sections (THE BACKGROUND FIX) =====
        Preview HTML uses class .amr-split / .amr-email-cta. Base CSS rules
@@ -474,7 +593,7 @@
 
           <a class="amr-category-tile" href="https://amr-cosmetics-2.myshopify.com/collections/all" target="_blank" rel="noopener">
             <div class="amr-category-tile__media">
-              <img src="images/hair-mask-alt.jpg" alt="Hair Care">
+              <img src="images/ig-hair-therapy-vid.jpg" alt="Hair Care">
             </div>
             <div class="amr-category-tile__caption">
               <h3 class="amr-h3 amr-category-tile__label">Hair Care</h3>
@@ -706,7 +825,7 @@
           <li class="amr-gallery__tile"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/ig-mocha-wand-vid.jpg" alt="Wearing Mocha gloss"></a></li>
           <li class="amr-gallery__tile"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/ig-mocha-night.jpg" alt="Mocha gloss lifestyle"></a></li>
           <li class="amr-gallery__tile"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/ig-bundle-flat.jpg" alt="AMR Bundle"></a></li>
-          <li class="amr-gallery__tile"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/ig-hair-therapy-vid.jpg" alt="Hair Therapy oil"></a></li>
+          <li class="amr-gallery__tile"><a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener"><img src="images/editorial-mocha.jpg" alt="Close-up gloss editorial"></a></li>
         </ul>
         <div class="amr-gallery__follow">
           <a class="amr-link amr-link--understated" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener">@amr.cosmeticss <span class="amr-arrow">&rarr;</span></a>
@@ -833,6 +952,58 @@
       closeBtn.addEventListener('click', close);
       drawer.querySelectorAll('[data-amr-drawer-link]').forEach(function(a){ a.addEventListener('click', close); });
       document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && drawer.getAttribute('aria-hidden') === 'false') close(); });
+    })();
+
+    // Sticky-header scroll state
+    (function(){
+      var threshold = 24;
+      var ticking = false;
+      function update() {
+        document.body.classList.toggle('is-scrolled', window.scrollY > threshold);
+        ticking = false;
+      }
+      window.addEventListener('scroll', function(){
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+      update();
+    })();
+
+    // Motion system — section reveal + staggered grids (skips if reduced motion)
+    (function(){
+      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced || !('IntersectionObserver' in window)) return;
+
+      // Mark sections as reveal targets (skip hero — should appear instantly)
+      document.querySelectorAll('main > section').forEach(function(sec, i){
+        if (i === 0) return; // hero loads immediately
+        sec.classList.add('reveal-target');
+      });
+
+      // Mark grid items for staggered reveal
+      var gridSelectors = [
+        '.amr-categories__grid > *',
+        '.amr-product-grid > *',
+        '.amr-why__grid > *',
+        '.amr-split__grid > *',
+        '.amr-gallery__grid > *',
+        '.amr-faq__item'
+      ];
+      document.querySelectorAll(gridSelectors.join(', ')).forEach(function(el){
+        el.classList.add('stagger-target');
+      });
+
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+
+      document.querySelectorAll('.reveal-target, .stagger-target').forEach(function(el){
+        io.observe(el);
+      });
     })();
   </script>
 </body>
