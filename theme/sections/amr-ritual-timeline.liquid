@@ -1,0 +1,253 @@
+{% comment %}
+  AMR Ritual Timeline — "What you may notice over time."
+  Two-column ritual timeline (Hair / Lip) with three stages each:
+  First use, First week, With regular use.
+  Cosmetic-safe language only. No clinical claims.
+  Sits directly below the hero. Stacks on mobile.
+{% endcomment %}
+
+{{ 'amr-homepage.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .amr-ritual {
+    background: var(--amr-paper-warm);
+    padding: clamp(64px, 9vw, 112px) clamp(24px, 6vw, 80px);
+    border-bottom: 1px solid var(--amr-hairline);
+  }
+  .amr-ritual__inner { max-width: 1180px; margin: 0 auto; }
+  .amr-ritual__head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto clamp(40px, 6vw, 72px);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .amr-ritual__eyebrow { color: var(--amr-ink-mute); }
+  .amr-ritual__headline {
+    font-family: var(--amr-font-display); font-weight: 400;
+    font-size: clamp(1.85rem, 1rem + 2.6vw, 2.75rem);
+    line-height: 1.12; letter-spacing: -0.01em; color: var(--amr-ink); margin: 0;
+  }
+  .amr-ritual__sub { color: var(--amr-ink-soft); max-width: 56ch; margin: 4px auto 0; }
+
+  .amr-ritual__grid {
+    display: grid; grid-template-columns: 1fr;
+    gap: clamp(40px, 5vw, 64px); align-items: stretch;
+  }
+  @media (min-width: 880px) {
+    .amr-ritual__grid {
+      grid-template-columns: 1fr 1px 1fr;
+      gap: clamp(48px, 5vw, 80px);
+    }
+    .amr-ritual__divider {
+      background: var(--amr-hairline);
+      width: 1px; align-self: stretch; justify-self: center;
+    }
+  }
+  .amr-ritual__divider { display: none; }
+  @media (min-width: 880px) { .amr-ritual__divider { display: block; } }
+
+  .amr-ritual-col { display: flex; flex-direction: column; gap: clamp(20px, 2.5vw, 28px); }
+  .amr-ritual-col__head {
+    display: flex; flex-direction: column; gap: 6px;
+    padding-bottom: clamp(14px, 1.5vw, 18px);
+    border-bottom: 1px solid var(--amr-hairline);
+  }
+  .amr-ritual-col__eyebrow { color: var(--amr-ink-mute); }
+  .amr-ritual-col__title {
+    font-family: var(--amr-font-display); font-weight: 400;
+    font-size: clamp(1.4rem, 0.9rem + 1.4vw, 1.85rem);
+    line-height: 1.15; letter-spacing: -0.005em; color: var(--amr-ink); margin: 0;
+  }
+
+  .amr-ritual-steps {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: clamp(22px, 2.6vw, 30px);
+  }
+  .amr-ritual-step {
+    display: grid; grid-template-columns: auto 1fr;
+    column-gap: clamp(14px, 1.8vw, 20px); row-gap: 6px;
+    align-items: start; position: relative;
+  }
+  .amr-ritual-step__marker {
+    display: flex; flex-direction: column; align-items: center; gap: 6px; padding-top: 6px;
+  }
+  .amr-ritual-step__dot {
+    width: 9px; height: 9px; border-radius: 50%; background: var(--amr-ink); flex-shrink: 0;
+  }
+  .amr-ritual-step__line {
+    width: 1px; flex: 1; background: var(--amr-hairline); min-height: 28px;
+  }
+  .amr-ritual-step:last-child .amr-ritual-step__line { display: none; }
+  .amr-ritual-step__body { display: flex; flex-direction: column; gap: 6px; padding-bottom: 4px; }
+  .amr-ritual-step__label {
+    font-family: var(--amr-font-body); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--amr-ink-mute); line-height: 1;
+  }
+  .amr-ritual-step__copy {
+    font-family: var(--amr-font-body);
+    font-size: clamp(15px, 0.92rem + 0.15vw, 17px);
+    line-height: 1.55; color: var(--amr-ink-soft); margin: 0; max-width: 36ch;
+  }
+
+  .amr-ritual__close {
+    text-align: center;
+    margin-top: clamp(40px, 5vw, 64px);
+    padding-top: clamp(28px, 3.5vw, 40px);
+    border-top: 1px solid var(--amr-hairline);
+  }
+  .amr-ritual__close-line {
+    font-family: var(--amr-font-display); font-style: italic; font-weight: 400;
+    font-size: clamp(1.15rem, 0.9rem + 0.7vw, 1.45rem);
+    color: var(--amr-ink); margin: 0 0 6px; line-height: 1.3;
+  }
+  .amr-ritual__close-sub { color: var(--amr-ink-soft); font-size: 14px; letter-spacing: 0.02em; margin: 0; }
+</style>
+
+<section class="amr amr-ritual" aria-labelledby="amr-ritual-heading-{{ section.id }}">
+  <div class="amr-ritual__inner">
+    <header class="amr-ritual__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="amr-eyebrow amr-ritual__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 id="amr-ritual-heading-{{ section.id }}" class="amr-ritual__headline">{{ section.settings.headline }}</h2>
+      {%- if section.settings.subline != blank -%}
+        <p class="amr-body amr-ritual__sub">{{ section.settings.subline }}</p>
+      {%- endif -%}
+    </header>
+
+    <div class="amr-ritual__grid">
+
+      <div class="amr-ritual-col" aria-labelledby="amr-ritual-hair-{{ section.id }}">
+        <header class="amr-ritual-col__head">
+          <p class="amr-eyebrow amr-ritual-col__eyebrow">{{ section.settings.hair_eyebrow }}</p>
+          <h3 id="amr-ritual-hair-{{ section.id }}" class="amr-ritual-col__title">{{ section.settings.hair_title }}</h3>
+        </header>
+        <ol class="amr-ritual-steps">
+          <li class="amr-ritual-step">
+            <span class="amr-ritual-step__marker" aria-hidden="true">
+              <span class="amr-ritual-step__dot"></span>
+              <span class="amr-ritual-step__line"></span>
+            </span>
+            <div class="amr-ritual-step__body">
+              <p class="amr-ritual-step__label">{{ section.settings.stage_one_label }}</p>
+              <p class="amr-ritual-step__copy">{{ section.settings.hair_stage_one }}</p>
+            </div>
+          </li>
+          <li class="amr-ritual-step">
+            <span class="amr-ritual-step__marker" aria-hidden="true">
+              <span class="amr-ritual-step__dot"></span>
+              <span class="amr-ritual-step__line"></span>
+            </span>
+            <div class="amr-ritual-step__body">
+              <p class="amr-ritual-step__label">{{ section.settings.stage_two_label }}</p>
+              <p class="amr-ritual-step__copy">{{ section.settings.hair_stage_two }}</p>
+            </div>
+          </li>
+          <li class="amr-ritual-step">
+            <span class="amr-ritual-step__marker" aria-hidden="true">
+              <span class="amr-ritual-step__dot"></span>
+              <span class="amr-ritual-step__line"></span>
+            </span>
+            <div class="amr-ritual-step__body">
+              <p class="amr-ritual-step__label">{{ section.settings.stage_three_label }}</p>
+              <p class="amr-ritual-step__copy">{{ section.settings.hair_stage_three }}</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="amr-ritual__divider" aria-hidden="true"></div>
+
+      <div class="amr-ritual-col" aria-labelledby="amr-ritual-lip-{{ section.id }}">
+        <header class="amr-ritual-col__head">
+          <p class="amr-eyebrow amr-ritual-col__eyebrow">{{ section.settings.lip_eyebrow }}</p>
+          <h3 id="amr-ritual-lip-{{ section.id }}" class="amr-ritual-col__title">{{ section.settings.lip_title }}</h3>
+        </header>
+        <ol class="amr-ritual-steps">
+          <li class="amr-ritual-step">
+            <span class="amr-ritual-step__marker" aria-hidden="true">
+              <span class="amr-ritual-step__dot"></span>
+              <span class="amr-ritual-step__line"></span>
+            </span>
+            <div class="amr-ritual-step__body">
+              <p class="amr-ritual-step__label">{{ section.settings.stage_one_label }}</p>
+              <p class="amr-ritual-step__copy">{{ section.settings.lip_stage_one }}</p>
+            </div>
+          </li>
+          <li class="amr-ritual-step">
+            <span class="amr-ritual-step__marker" aria-hidden="true">
+              <span class="amr-ritual-step__dot"></span>
+              <span class="amr-ritual-step__line"></span>
+            </span>
+            <div class="amr-ritual-step__body">
+              <p class="amr-ritual-step__label">{{ section.settings.stage_two_label }}</p>
+              <p class="amr-ritual-step__copy">{{ section.settings.lip_stage_two }}</p>
+            </div>
+          </li>
+          <li class="amr-ritual-step">
+            <span class="amr-ritual-step__marker" aria-hidden="true">
+              <span class="amr-ritual-step__dot"></span>
+              <span class="amr-ritual-step__line"></span>
+            </span>
+            <div class="amr-ritual-step__body">
+              <p class="amr-ritual-step__label">{{ section.settings.stage_three_label }}</p>
+              <p class="amr-ritual-step__copy">{{ section.settings.lip_stage_three }}</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+
+    {%- if section.settings.close_line != blank or section.settings.close_sub != blank -%}
+      <div class="amr-ritual__close">
+        {%- if section.settings.close_line != blank -%}
+          <p class="amr-ritual__close-line">{{ section.settings.close_line }}</p>
+        {%- endif -%}
+        {%- if section.settings.close_sub != blank -%}
+          <p class="amr-ritual__close-sub">{{ section.settings.close_sub }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ritual Timeline",
+  "tag": "section",
+  "class": "amr-section amr-section--ritual",
+  "settings": [
+    { "type": "header", "content": "Section intro" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A QUIET RITUAL, OVER TIME" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "What you may notice over time." },
+    { "type": "textarea", "id": "subline", "label": "Subline", "default": "Soft results, steady ritual — the kind you keep coming back to." },
+
+    { "type": "header", "content": "Stage labels (shared)" },
+    { "type": "text", "id": "stage_one_label", "label": "Stage 1 label", "default": "First use" },
+    { "type": "text", "id": "stage_two_label", "label": "Stage 2 label", "default": "First week" },
+    { "type": "text", "id": "stage_three_label", "label": "Stage 3 label", "default": "With regular use" },
+
+    { "type": "header", "content": "Hair ritual column" },
+    { "type": "text", "id": "hair_eyebrow", "label": "Hair eyebrow", "default": "HAIR RITUAL" },
+    { "type": "text", "id": "hair_title", "label": "Hair column title", "default": "Care that feels like a habit." },
+    { "type": "textarea", "id": "hair_stage_one", "label": "Hair — First use", "default": "A softer finish, a smoother feel, and a more polished look right away." },
+    { "type": "textarea", "id": "hair_stage_two", "label": "Hair — First week", "default": "Hair begins to feel more cared for in your everyday routine — easier to style, softer to the touch, and more put together." },
+    { "type": "textarea", "id": "hair_stage_three", "label": "Hair — With regular use", "default": "A healthy-looking finish becomes easier to maintain: softer texture, better shine, and a routine that feels worth repeating." },
+
+    { "type": "header", "content": "Lip ritual column" },
+    { "type": "text", "id": "lip_eyebrow", "label": "Lip eyebrow", "default": "LIP RITUAL" },
+    { "type": "text", "id": "lip_title", "label": "Lip column title", "default": "A gloss you keep coming back to." },
+    { "type": "textarea", "id": "lip_stage_one", "label": "Lip — First use", "default": "Instant shine, a smoother look, and an easy polished finish." },
+    { "type": "textarea", "id": "lip_stage_two", "label": "Lip — First week", "default": "Lips begin to feel more comfortable in the day-to-day, with a softer look and a gloss you keep reaching for." },
+    { "type": "textarea", "id": "lip_stage_three", "label": "Lip — With regular use", "default": "A consistently finished look: soft shine, easy wear, and a lip routine that feels simple to keep up with." },
+
+    { "type": "header", "content": "Closing microcopy (optional)" },
+    { "type": "text", "id": "close_line", "label": "Closing line", "default": "Consistent care, soft payoff." },
+    { "type": "text", "id": "close_sub", "label": "Closing subline", "default": "The kind of ritual that becomes part of how you get ready." }
+  ],
+  "presets": [
+    { "name": "AMR Ritual Timeline", "category": "AMR" }
+  ]
+}
+{% endschema %}

@@ -15,6 +15,29 @@
         "secondary_cta_two_link": "shopify://collections/lip-care"
       }
     },
+    "ritual-timeline": {
+      "type": "amr-ritual-timeline",
+      "settings": {
+        "eyebrow": "A QUIET RITUAL, OVER TIME",
+        "headline": "What you may notice over time.",
+        "subline": "Soft results, steady ritual — the kind you keep coming back to.",
+        "stage_one_label": "First use",
+        "stage_two_label": "First week",
+        "stage_three_label": "With regular use",
+        "hair_eyebrow": "HAIR RITUAL",
+        "hair_title": "Care that feels like a habit.",
+        "hair_stage_one": "A softer finish, a smoother feel, and a more polished look right away.",
+        "hair_stage_two": "Hair begins to feel more cared for in your everyday routine — easier to style, softer to the touch, and more put together.",
+        "hair_stage_three": "A healthy-looking finish becomes easier to maintain: softer texture, better shine, and a routine that feels worth repeating.",
+        "lip_eyebrow": "LIP RITUAL",
+        "lip_title": "A gloss you keep coming back to.",
+        "lip_stage_one": "Instant shine, a smoother look, and an easy polished finish.",
+        "lip_stage_two": "Lips begin to feel more comfortable in the day-to-day, with a softer look and a gloss you keep reaching for.",
+        "lip_stage_three": "A consistently finished look: soft shine, easy wear, and a lip routine that feels simple to keep up with.",
+        "close_line": "Consistent care, soft payoff.",
+        "close_sub": "The kind of ritual that becomes part of how you get ready."
+      }
+    },
     "brand-intro": {
       "type": "amr-brand-intro",
       "settings": {
@@ -144,6 +167,7 @@
   },
   "order": [
     "hero",
+    "ritual-timeline",
     "brand-intro",
     "shop-categories",
     "featured-products",
