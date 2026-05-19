@@ -225,29 +225,75 @@
       object-fit: contain !important;
       padding: clamp(20px, 3vw, 40px) !important;
     }
+    /* Hover crossfade — only when the card actually HAS a secondary image */
+    .amr-product-card:hover .amr-product-card__image--primary { opacity: 1 !important; }
+    .amr-product-card:has(.amr-product-card__image--secondary):hover .amr-product-card__image--primary { opacity: 0 !important; }
+    .amr-product-card:has(.amr-product-card__image--secondary):hover .amr-product-card__image--secondary { opacity: 1 !important; }
 
-    /* ===== Contrast fixes — bump opacities on cocoa backgrounds ===== */
-    .amr-section--split .amr-eyebrow,
-    .amr-section--email-cta .amr-email-cta__eyebrow {
-      color: rgba(250, 247, 244, 0.85) !important;
+    /* ===== Cocoa-background sections (THE BACKGROUND FIX) =====
+       Preview HTML uses class .amr-split / .amr-email-cta. Base CSS rules
+       targeted .amr-section--split / .amr-section--email-cta which Shopify
+       adds automatically but my preview HTML doesn't — so the cocoa bg
+       wasn't applying and paper-warm text was rendering on the default
+       white body. Bind both selectors so it works in both contexts. */
+    .amr-split,
+    .amr-section--split {
+      background: var(--amr-cocoa) !important;
+      color: var(--amr-paper-warm) !important;
     }
+    .amr-email-cta,
+    .amr-section--email-cta {
+      background: var(--amr-cocoa) !important;
+      color: var(--amr-paper-warm) !important;
+    }
+
+    /* Text color overrides on cocoa-bg sections */
+    .amr-split .amr-eyebrow,
+    .amr-section--split .amr-eyebrow,
+    .amr-email-cta .amr-email-cta__eyebrow,
+    .amr-section--email-cta .amr-email-cta__eyebrow {
+      color: rgba(250, 247, 244, 0.88) !important;
+    }
+    .amr-split .amr-section-head__subline,
+    .amr-split .amr-split__body,
+    .amr-split .amr-split__headline,
+    .amr-split .amr-display,
+    .amr-split .amr-h2,
     .amr-section--split .amr-section-head__subline,
     .amr-section--split .amr-split__body,
+    .amr-email-cta .amr-email-cta__subline,
+    .amr-email-cta .amr-email-cta__headline,
     .amr-section--email-cta .amr-email-cta__subline {
-      color: rgba(250, 247, 244, 0.92) !important;
+      color: var(--amr-paper-warm) !important;
     }
+    .amr-split .amr-split__cta,
+    .amr-section--split .amr-split__cta {
+      color: var(--amr-paper-warm) !important;
+      border-bottom-color: rgba(250, 247, 244, 0.7) !important;
+    }
+    .amr-email-cta .amr-email-cta__micro,
+    .amr-email-cta .amr-email-cta__input,
     .amr-section--email-cta .amr-email-cta__micro,
+    .amr-section--email-cta .amr-email-cta__input {
+      color: var(--amr-paper-warm) !important;
+    }
+    .amr-email-cta .amr-email-cta__input::placeholder,
     .amr-section--email-cta .amr-email-cta__input::placeholder {
       color: rgba(250, 247, 244, 0.75) !important;
     }
-    .amr-section--split .amr-split__cta { border-bottom-color: rgba(250, 247, 244, 0.6) !important; }
-    /* Email field stronger contrast on cocoa */
+    .amr-email-cta .amr-email-cta__field,
     .amr-section--email-cta .amr-email-cta__field {
       background: rgba(255,255,255,0.10) !important;
       border: 1.5px solid rgba(250, 247, 244, 0.55) !important;
     }
+    .amr-email-cta .amr-email-cta__field:focus-within,
     .amr-section--email-cta .amr-email-cta__field:focus-within {
       border-color: var(--amr-paper-warm) !important;
+    }
+    /* Buttons on cocoa */
+    .amr-split .amr-button--ghost,
+    .amr-email-cta .amr-button--ghost {
+      color: var(--amr-paper-warm); border-color: var(--amr-paper-warm);
     }
 
     /* ===== Section spacing normalization ===== */
