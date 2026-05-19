@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#4a2f22">
+  <title>AMR Cosmetics — Homepage preview</title>
+  <meta name="description" content="Design preview of the new AMR Cosmetics homepage. Premium minimal beauty ecommerce.">
+  <meta name="robots" content="noindex,nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="amr-homepage.css">
+  <style>
+    /* ===== Preview-only overrides ===== */
+    body { margin: 0; background: var(--amr-paper); color: var(--amr-ink); font-family: var(--amr-font-body); }
+    main { display: block; }
+
+    /* Notice banner */
+    .preview-banner {
+      background: var(--amr-cocoa);
+      color: var(--amr-paper-warm);
+      padding: 10px 20px;
+      text-align: center;
+      font-family: var(--amr-font-body);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .preview-banner strong { font-weight: 600; }
+
+    /* Top nav (preview-only stand-in) */
+    .preview-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px clamp(20px, 5vw, 80px);
+      background: var(--amr-paper);
+      border-bottom: 1px solid var(--amr-hairline);
+    }
+    .preview-nav__group { display: flex; gap: 28px; align-items: center; font-size: 13px; letter-spacing: 0.04em; color: var(--amr-ink); }
+    .preview-nav__group a { color: inherit; text-decoration: none; transition: opacity .2s; }
+    .preview-nav__group a:hover { opacity: 0.65; }
+    .preview-nav__mark {
+      font-family: "Pinyon Script", cursive;
+      font-size: clamp(34px, 4vw, 48px);
+      color: var(--amr-ink);
+      line-height: 1;
+      transform: translateY(-2px);
+    }
+    @media (max-width: 700px) {
+      .preview-nav { padding: 18px 20px; }
+      .preview-nav__group { gap: 16px; font-size: 12px; }
+      .preview-nav__group:first-child a:not(:first-child) { display: none; }
+    }
+
+    /* Hero — type-led, full-bleed, paper-warm */
+    .amr-hero__logo--script {
+      font-family: "Pinyon Script", cursive;
+      font-size: clamp(88px, 13vw, 200px);
+      color: var(--amr-ink);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    /* Image cards: keep object-fit cover and crisp on real photos */
+    .amr-product-card__media img { object-fit: cover; padding: 0; }
+
+    /* Footer preview */
+    .preview-footer {
+      background: var(--amr-paper);
+      border-top: 1px solid var(--amr-hairline);
+      padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 80px);
+    }
+    .preview-footer__grid {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    @media (min-width: 768px) {
+      .preview-footer__grid { grid-template-columns: 1.4fr repeat(4, 1fr); gap: 40px; }
+    }
+    .preview-footer__brand .preview-nav__mark { font-size: 64px; display: block; margin-bottom: 14px; }
+    .preview-footer__tag { font-family: var(--amr-font-display); font-style: italic; font-size: 17px; color: var(--amr-ink-mute); }
+    .preview-footer__col h4 { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; color: var(--amr-ink-mute); margin: 0 0 16px; }
+    .preview-footer__col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .preview-footer__col a { color: var(--amr-ink-soft); text-decoration: none; font-size: 14px; transition: color .2s; }
+    .preview-footer__col a:hover { color: var(--amr-cocoa); }
+    .preview-footer__legal {
+      max-width: 1440px;
+      margin: clamp(40px, 5vw, 60px) auto 0;
+      padding-top: 24px;
+      border-top: 1px solid var(--amr-hairline);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--amr-ink-mute);
+    }
+    .preview-footer__legal a { color: inherit; text-decoration: none; margin-left: 16px; }
+    .preview-footer__legal a:hover { color: var(--amr-cocoa); }
+
+    /* Image-slot fallback labels (kept for sections without dedicated imagery) */
+    .slot-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(15,15,15,0.4);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preview banner -->
+  <div class="preview-banner">
+    <strong>Design preview</strong> &nbsp;·&nbsp; AMR Cosmetics homepage v1.0 &nbsp;·&nbsp; final imagery and copy can evolve
+  </div>
+
+  <!-- Header / Nav -->
+  <header class="preview-nav" role="banner">
+    <nav class="preview-nav__group" aria-label="Shop navigation">
+      <a href="#categories">Shop</a>
+      <a href="#categories">Hair</a>
+      <a href="#categories">Lip</a>
+      <a href="#routine">Sets</a>
+    </nav>
+    <a class="preview-nav__mark" href="#top" aria-label="AMR Cosmetics — home">amr</a>
+    <nav class="preview-nav__group" aria-label="Account navigation">
+      <a href="#">Search</a>
+      <a href="#">Account</a>
+      <a href="#">Cart (0)</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ 01 HERO ============ -->
+    <section class="amr amr-hero amr-hero--paper-warm" aria-labelledby="hero-h">
+      <div class="amr-container amr-hero__inner">
+        <div class="amr-hero__logo amr-hero__logo--script" aria-label="AMR Cosmetics">amr</div>
+        <p class="amr-eyebrow amr-hero__eyebrow">EST. AMR · HAIR &amp; LIP</p>
+        <h1 id="hero-h" class="amr-display amr-hero__headline">Where healthy hair meets glossy lips.</h1>
+        <p class="amr-body amr-hero__subline">Polished essentials for the everyday — soft on skin, kind to hair, made for shine.</p>
+        <div class="amr-hero__ctas">
+          <a href="#featured" class="amr-button amr-button--primary">Shop Bestsellers</a>
+          <div class="amr-hero__secondary-ctas" role="group" aria-label="Browse by category">
+            <a href="#categories" class="amr-link amr-link--understated">Hair Care</a>
+            <span class="amr-hero__sep" aria-hidden="true">·</span>
+            <a href="#categories" class="amr-link amr-link--understated">Lip Care</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 BRAND INTRO ============ -->
+    <section class="amr amr-intro" aria-labelledby="intro-h">
+      <div class="amr-container amr-intro__inner">
+        <p class="amr-eyebrow amr-intro__eyebrow">ABOUT AMR</p>
+        <h2 id="intro-h" class="amr-h2 amr-intro__headline">Two rituals. One feeling.</h2>
+        <p class="amr-body amr-intro__body">AMR began with two small ideas worth doing well — care for hair that feels healthy, and a gloss that feels like you. Every product is shaped for the in-between moments: the slow morning, the second look, the easy reach for something soft. Considered, never complicated.</p>
+        <blockquote class="amr-intro__quote">
+          <p>A quiet kind of polish.</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ============ 03 SHOP BY CATEGORY ============ -->
+    <section class="amr amr-categories" id="categories" aria-labelledby="cat-h">
+      <div class="amr-container">
+        <header class="amr-section-head">
+          <p class="amr-eyebrow">SHOP</p>
+          <h2 id="cat-h" class="amr-h2">Find your everyday.</h2>
+        </header>
+        <div class="amr-categories__grid">
+
+          <a class="amr-category-tile" href="#featured">
+            <div class="amr-category-tile__media">
+              <img src="images/hair-oil.jpg" alt="Hair Care" loading="lazy">
+            </div>
+            <div class="amr-category-tile__caption">
+              <h3 class="amr-h3 amr-category-tile__label">Hair Care</h3>
+              <p class="amr-body-sm amr-category-tile__subline">Oils, masks, and scalp care for soft, healthy-looking hair.</p>
+              <span class="amr-link amr-link--understated amr-category-tile__cta">Shop Hair <span class="amr-arrow">&rarr;</span></span>
+            </div>
+          </a>
+
+          <a class="amr-category-tile" href="#featured">
+            <div class="amr-category-tile__media">
+              <img src="images/pink-gloss.jpg" alt="Lip Care" loading="lazy">
+            </div>
+            <div class="amr-category-tile__caption">
+              <h3 class="amr-h3 amr-category-tile__label">Lip Care</h3>
+              <p class="amr-body-sm amr-category-tile__subline">Glosses and lip tones built for soft shine and easy wear.</p>
+              <span class="amr-link amr-link--understated amr-category-tile__cta">Shop Lip <span class="amr-arrow">&rarr;</span></span>
+            </div>
+          </a>
+
+          <a class="amr-category-tile" href="#routine">
+            <div class="amr-category-tile__media">
+              <img src="images/bundle.jpg" alt="Sets & Rituals" loading="lazy">
+            </div>
+            <div class="amr-category-tile__caption">
+              <h3 class="amr-h3 amr-category-tile__label">Sets &amp; Rituals</h3>
+              <p class="amr-body-sm amr-category-tile__subline">Curated pairings — for hair, for lips, or both.</p>
+              <span class="amr-link amr-link--understated amr-category-tile__cta">Shop Sets <span class="amr-arrow">&rarr;</span></span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 04 FEATURED PRODUCTS ============ -->
+    <section class="amr amr-featured" id="featured" aria-labelledby="featured-h">
+      <div class="amr-container">
+        <header class="amr-section-head amr-section-head--center">
+          <p class="amr-eyebrow">BESTSELLERS</p>
+          <h2 id="featured-h" class="amr-h2">The shortlist.</h2>
+          <p class="amr-body amr-section-head__subline">Quietly loved, quickly reordered.</p>
+        </header>
+
+        <div class="amr-product-grid amr-product-grid--cols-4">
+
+          <a class="amr-product-card amr-product-card--portrait" href="#">
+            <div class="amr-product-card__media">
+              <img class="amr-product-card__image amr-product-card__image--primary" src="images/hair-oil.jpg" alt="Hair Oil (Growth & Health)" loading="lazy">
+            </div>
+            <div class="amr-product-card__caption">
+              <p class="amr-eyebrow amr-product-card__eyebrow">HAIR</p>
+              <h3 class="amr-product-card__title">Hair Oil (Growth &amp; Health)</h3>
+              <p class="amr-product-card__price">$28.00</p>
+            </div>
+          </a>
+
+          <a class="amr-product-card amr-product-card--portrait" href="#">
+            <div class="amr-product-card__media">
+              <img class="amr-product-card__image amr-product-card__image--primary" src="images/hair-mask.jpg" alt="Hair Mask" loading="lazy">
+              <img class="amr-product-card__image amr-product-card__image--secondary" src="images/hair-mask-alt.jpg" alt="" loading="lazy">
+            </div>
+            <div class="amr-product-card__caption">
+              <p class="amr-eyebrow amr-product-card__eyebrow">HAIR RITUAL</p>
+              <h3 class="amr-product-card__title">Hair Mask</h3>
+              <p class="amr-product-card__price">$32.00</p>
+            </div>
+          </a>
+
+          <a class="amr-product-card amr-product-card--portrait" href="#">
+            <div class="amr-product-card__media">
+              <img class="amr-product-card__image amr-product-card__image--primary" src="images/pink-gloss.jpg" alt="Pink Gloss" loading="lazy">
+            </div>
+            <div class="amr-product-card__caption">
+              <p class="amr-eyebrow amr-product-card__eyebrow">LIPS</p>
+              <h3 class="amr-product-card__title">Pink Gloss</h3>
+              <p class="amr-product-card__price">$18.00</p>
+            </div>
+          </a>
+
+          <a class="amr-product-card amr-product-card--portrait" href="#">
+            <div class="amr-product-card__media">
+              <img class="amr-product-card__image amr-product-card__image--primary" src="images/ph-liptone.jpg" alt="pH LipTone" loading="lazy">
+            </div>
+            <div class="amr-product-card__caption">
+              <p class="amr-eyebrow amr-product-card__eyebrow">LIPS</p>
+              <h3 class="amr-product-card__title">pH LipTone</h3>
+              <p class="amr-product-card__price">$20.00</p>
+            </div>
+          </a>
+
+        </div>
+
+        <div class="amr-featured__view-all">
+          <a class="amr-link amr-link--understated" href="#">View All Products <span class="amr-arrow">&rarr;</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 05 WHY AMR ============ -->
+    <section class="amr amr-why" aria-labelledby="why-h">
+      <div class="amr-container">
+        <header class="amr-section-head amr-section-head--center">
+          <p class="amr-eyebrow">WHY AMR</p>
+          <h2 id="why-h" class="amr-h2">Made for the in-between.</h2>
+        </header>
+        <ul class="amr-why__grid" role="list">
+          <li class="amr-why__item">
+            <h3 class="amr-why__title">Considered formulas</h3>
+            <p class="amr-body-sm amr-why__body">Softly scented, comfortable to wear, easy to reach for.</p>
+          </li>
+          <li class="amr-why__item">
+            <h3 class="amr-why__title">Hair &amp; lip in one place</h3>
+            <p class="amr-body-sm amr-why__body">Two product worlds, one quiet aesthetic — built to live on the same shelf.</p>
+          </li>
+          <li class="amr-why__item">
+            <h3 class="amr-why__title">Polished, never loud</h3>
+            <p class="amr-body-sm amr-why__body">Pieces that finish a look without taking it over.</p>
+          </li>
+          <li class="amr-why__item">
+            <h3 class="amr-why__title">Small batches, real care</h3>
+            <p class="amr-body-sm amr-why__body">Made in considered quantities, packed with intention.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 06 GLOSS / GROWTH SPLIT ============ -->
+    <section class="amr amr-split" aria-labelledby="split-h">
+      <div class="amr-container">
+        <header class="amr-section-head amr-section-head--center">
+          <p class="amr-eyebrow">THE AMR EDIT</p>
+          <h2 id="split-h" class="amr-display amr-split__display">GLOSS. GROWTH.</h2>
+          <p class="amr-body amr-section-head__subline">Two rituals that share a feeling.</p>
+        </header>
+      </div>
+      <div class="amr-split__grid">
+
+        <article class="amr-split__panel amr-split__panel--left">
+          <div class="amr-split__media">
+            <img src="images/editorial-gloss.jpg" alt="" loading="lazy">
+          </div>
+          <div class="amr-split__content">
+            <p class="amr-eyebrow amr-split__eyebrow">LIPS</p>
+            <h3 class="amr-h2 amr-split__headline">A soft, wearable shine.</h3>
+            <p class="amr-body amr-split__body">Glosses and lip tones made for everyday wear — the kind you reach for without thinking.</p>
+            <a class="amr-link amr-link--understated amr-split__cta" href="#categories">Shop Lip Care <span class="amr-arrow">&rarr;</span></a>
+          </div>
+        </article>
+
+        <article class="amr-split__panel amr-split__panel--right">
+          <div class="amr-split__media">
+            <img src="images/bundle.jpg" alt="" loading="lazy">
+          </div>
+          <div class="amr-split__content">
+            <p class="amr-eyebrow amr-split__eyebrow">HAIR</p>
+            <h3 class="amr-h2 amr-split__headline">Care that feels healthy.</h3>
+            <p class="amr-body amr-split__body">Oils and masks shaped around how hair actually feels — soft to the touch, light on the scalp.</p>
+            <a class="amr-link amr-link--understated amr-split__cta" href="#categories">Shop Hair Care <span class="amr-arrow">&rarr;</span></a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ 07 BUILD YOUR RITUAL ============ -->
+    <section class="amr amr-routine" id="routine" aria-labelledby="routine-h">
+      <div class="amr-container">
+        <header class="amr-section-head amr-section-head--center">
+          <p class="amr-eyebrow">SETS &amp; RITUALS</p>
+          <h2 id="routine-h" class="amr-h2">Build your ritual.</h2>
+          <p class="amr-body amr-section-head__subline">Three curated pairings — designed to live together.</p>
+        </header>
+        <div class="amr-routine__grid">
+
+          <article class="amr-routine__card">
+            <div class="amr-routine__media">
+              <img src="images/hair-mask-alt.jpg" alt="The Hair Ritual" loading="lazy">
+            </div>
+            <div class="amr-routine__caption">
+              <h3 class="amr-h3 amr-routine__title">The Hair Ritual</h3>
+              <p class="amr-body-sm amr-routine__body">Oil + mask. A weekly reset for soft, healthy-looking hair.</p>
+              <p class="amr-routine__price">$54 · save 10%</p>
+              <a class="amr-link amr-link--understated amr-routine__cta" href="#">Shop the Hair Ritual <span class="amr-arrow">&rarr;</span></a>
+            </div>
+          </article>
+
+          <article class="amr-routine__card">
+            <div class="amr-routine__media">
+              <img src="images/editorial-berry.jpg" alt="The Lip Edit" loading="lazy">
+            </div>
+            <div class="amr-routine__caption">
+              <h3 class="amr-h3 amr-routine__title">The Lip Edit</h3>
+              <p class="amr-body-sm amr-routine__body">Pink Gloss + Crystal Clear. Soft shine for every kind of day.</p>
+              <p class="amr-routine__price">$32 · save 15%</p>
+              <a class="amr-link amr-link--understated amr-routine__cta" href="#">Shop the Lip Edit <span class="amr-arrow">&rarr;</span></a>
+            </div>
+          </article>
+
+          <article class="amr-routine__card">
+            <div class="amr-routine__media">
+              <img src="images/bundle.jpg" alt="The Complete Ritual" loading="lazy">
+            </div>
+            <div class="amr-routine__caption">
+              <h3 class="amr-h3 amr-routine__title">The Complete Ritual</h3>
+              <p class="amr-body-sm amr-routine__body">Hair + lip, together. The full AMR feeling.</p>
+              <p class="amr-routine__price">$78 · save 20%</p>
+              <a class="amr-link amr-link--understated amr-routine__cta" href="#">Shop the Complete Ritual <span class="amr-arrow">&rarr;</span></a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 08 REVIEWS ============ -->
+    <section class="amr amr-reviews" aria-labelledby="rev-h">
+      <div class="amr-container">
+        <header class="amr-section-head amr-section-head--center">
+          <p class="amr-eyebrow">REVIEWS</p>
+          <h2 id="rev-h" class="amr-h2">What our community says.</h2>
+        </header>
+        <div class="amr-reviews__grid">
+
+          <figure class="amr-review">
+            <div class="amr-review__stars" aria-label="Five out of five stars">
+              <span aria-hidden="true">★ ★ ★ ★ ★</span>
+            </div>
+            <blockquote class="amr-review__quote">
+              <p>The hair oil is a quiet favorite — soft, light, and I keep reaching for it.</p>
+            </blockquote>
+            <figcaption class="amr-review__author">— Sofía R.</figcaption>
+          </figure>
+
+          <figure class="amr-review">
+            <div class="amr-review__stars" aria-label="Five out of five stars">
+              <span aria-hidden="true">★ ★ ★ ★ ★</span>
+            </div>
+            <blockquote class="amr-review__quote">
+              <p>The Pink Gloss is the one I keep in every bag. Soft shine, never sticky.</p>
+            </blockquote>
+            <figcaption class="amr-review__author">— Mia L.</figcaption>
+          </figure>
+
+          <figure class="amr-review">
+            <div class="amr-review__stars" aria-label="Five out of five stars">
+              <span aria-hidden="true">★ ★ ★ ★ ★</span>
+            </div>
+            <blockquote class="amr-review__quote">
+              <p>Beautiful packaging, beautiful results. It feels like it was made with care.</p>
+            </blockquote>
+            <figcaption class="amr-review__author">— Andrea P.</figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 09 EDITORIAL GALLERY ============ -->
+    <section class="amr amr-gallery" aria-labelledby="gal-h">
+      <div class="amr-container">
+        <header class="amr-section-head amr-section-head--center">
+          <p class="amr-eyebrow">@AMR.COSMETICSS</p>
+          <h2 id="gal-h" class="amr-h2">Inside the everyday.</h2>
+          <p class="amr-body amr-section-head__subline">Follow along on Instagram.</p>
+        </header>
+
+        <ul class="amr-gallery__grid" role="list">
+          <li class="amr-gallery__tile amr-gallery__tile--1">
+            <a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener">
+              <img src="images/bundle.jpg" alt="AMR Bundle composition" loading="lazy">
+            </a>
+          </li>
+          <li class="amr-gallery__tile amr-gallery__tile--2">
+            <a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener">
+              <img src="images/editorial-gloss.jpg" alt="Gloss editorial" loading="lazy">
+            </a>
+          </li>
+          <li class="amr-gallery__tile amr-gallery__tile--3">
+            <a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener">
+              <img src="images/hair-oil.jpg" alt="Hair oil still" loading="lazy">
+            </a>
+          </li>
+          <li class="amr-gallery__tile amr-gallery__tile--4">
+            <a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener">
+              <img src="images/editorial-berry.jpg" alt="Berry editorial" loading="lazy">
+            </a>
+          </li>
+          <li class="amr-gallery__tile amr-gallery__tile--5">
+            <a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener">
+              <img src="images/pink-gloss.jpg" alt="Pink gloss still" loading="lazy">
+            </a>
+          </li>
+          <li class="amr-gallery__tile amr-gallery__tile--6">
+            <a class="amr-gallery__link" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener">
+              <img src="images/editorial-mocha.jpg" alt="Mocha editorial" loading="lazy">
+            </a>
+          </li>
+        </ul>
+
+        <div class="amr-gallery__follow">
+          <a class="amr-link amr-link--understated" href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener">@amr.cosmeticss <span class="amr-arrow">&rarr;</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10 FAQ ============ -->
+    <section class="amr amr-faq" aria-labelledby="faq-h">
+      <div class="amr-container amr-faq__inner">
+        <header class="amr-section-head amr-section-head--center">
+          <p class="amr-eyebrow">GOOD TO KNOW</p>
+          <h2 id="faq-h" class="amr-h2">Questions, answered.</h2>
+        </header>
+
+        <div class="amr-faq__list" data-amr-faq>
+          <details class="amr-faq__item" data-amr-faq-item>
+            <summary class="amr-faq__question"><span>When will my order ship?</span><span class="amr-faq__icon" aria-hidden="true"></span></summary>
+            <div class="amr-faq__answer"><div class="amr-faq__answer-inner"><p>Orders are packed within 1–3 business days. You'll receive tracking by email as soon as your package is on its way.</p></div></div>
+          </details>
+          <details class="amr-faq__item" data-amr-faq-item>
+            <summary class="amr-faq__question"><span>Do you ship internationally?</span><span class="amr-faq__icon" aria-hidden="true"></span></summary>
+            <div class="amr-faq__answer"><div class="amr-faq__answer-inner"><p>Yes — we ship to most countries. Shipping options and rates appear at checkout based on your address.</p></div></div>
+          </details>
+          <details class="amr-faq__item" data-amr-faq-item>
+            <summary class="amr-faq__question"><span>What is your return policy?</span><span class="amr-faq__icon" aria-hidden="true"></span></summary>
+            <div class="amr-faq__answer"><div class="amr-faq__answer-inner"><p>Unopened products can be returned within 14 days of delivery. For hygiene reasons, opened lip and hair products cannot be returned. Reach out and we'll take care of you.</p></div></div>
+          </details>
+          <details class="amr-faq__item" data-amr-faq-item>
+            <summary class="amr-faq__question"><span>Are AMR products safe for sensitive skin and scalps?</span><span class="amr-faq__icon" aria-hidden="true"></span></summary>
+            <div class="amr-faq__answer"><div class="amr-faq__answer-inner"><p>Our formulas are designed to feel comfortable for most skin types. We always recommend a patch test before first use. If you have a known sensitivity, check the ingredients on each product page.</p></div></div>
+          </details>
+          <details class="amr-faq__item" data-amr-faq-item>
+            <summary class="amr-faq__question"><span>Can I use the hair oil daily?</span><span class="amr-faq__icon" aria-hidden="true"></span></summary>
+            <div class="amr-faq__answer"><div class="amr-faq__answer-inner"><p>Yes — the hair oil is light enough for daily wear. Many love it as a finishing oil on dry hair; it also works as a pre-wash treatment on damp ends.</p></div></div>
+          </details>
+          <details class="amr-faq__item" data-amr-faq-item>
+            <summary class="amr-faq__question"><span>How do I reach you?</span><span class="amr-faq__icon" aria-hidden="true"></span></summary>
+            <div class="amr-faq__answer"><div class="amr-faq__answer-inner"><p>Email us at hello@amrcosmetics.com — we read every message and reply quickly.</p></div></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 11 EMAIL CTA ============ -->
+    <section class="amr amr-email-cta" aria-labelledby="email-h">
+      <div class="amr-container amr-email-cta__inner">
+        <p class="amr-eyebrow amr-email-cta__eyebrow">STAY IN TOUCH</p>
+        <h2 id="email-h" class="amr-display amr-email-cta__headline">Join the AMR letter.</h2>
+        <p class="amr-body amr-email-cta__subline">Soft launches, early access, and the occasional quiet moment in your inbox.</p>
+
+        <form class="amr-email-cta__form" onsubmit="event.preventDefault(); this.querySelector('.amr-email-cta__success').hidden=false;">
+          <label class="amr-visually-hidden" for="email-input">Email address</label>
+          <div class="amr-email-cta__field">
+            <input id="email-input" type="email" required placeholder="Your email address" class="amr-email-cta__input" autocomplete="email">
+            <button type="submit" class="amr-button amr-button--ghost amr-email-cta__submit">Sign Up</button>
+          </div>
+          <p class="amr-email-cta__success" hidden role="status">Thanks — you're on the list.</p>
+          <p class="amr-email-cta__micro">No spam — just AMR. Unsubscribe anytime.</p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="preview-footer">
+    <div class="preview-footer__grid">
+      <div class="preview-footer__brand">
+        <span class="preview-nav__mark">amr</span>
+        <p class="preview-footer__tag">Where healthy hair meets glossy lips.</p>
+      </div>
+      <div class="preview-footer__col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#categories">Hair Care</a></li>
+          <li><a href="#categories">Lip Care</a></li>
+          <li><a href="#routine">Sets &amp; Rituals</a></li>
+          <li><a href="#featured">All Products</a></li>
+        </ul>
+      </div>
+      <div class="preview-footer__col">
+        <h4>About</h4>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Ingredients</a></li>
+        </ul>
+      </div>
+      <div class="preview-footer__col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="mailto:hello@amrcosmetics.com">Contact</a></li>
+        </ul>
+      </div>
+      <div class="preview-footer__col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/amr.cosmeticss/" target="_blank" rel="noopener">@amr.cosmeticss</a></li>
+          <li><a href="mailto:hello@amrcosmetics.com">hello@amrcosmetics.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="preview-footer__legal">
+      <span>© AMR Cosmetics. All rights reserved.</span>
+      <span>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="amr-homepage.js" defer></script>
+</body>
+</html>
