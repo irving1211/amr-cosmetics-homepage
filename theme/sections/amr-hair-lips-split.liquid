@@ -1,0 +1,112 @@
+{% comment %}
+  AMR GLOSS / GROWTH — the signature editorial split.
+  Two large panels, each with its own image, copy, and CTA.
+  Preserves and elevates the chocolate-brown moment from the current site.
+{% endcomment %}
+
+<section
+  class="amr amr-split"
+  aria-labelledby="amr-split-heading-{{ section.id }}"
+>
+  <div class="amr-container">
+    <header class="amr-section-head amr-section-head--center">
+      {%- if section.settings.section_eyebrow != blank -%}
+        <p class="amr-eyebrow">{{ section.settings.section_eyebrow }}</p>
+      {%- endif -%}
+      <h2 id="amr-split-heading-{{ section.id }}" class="amr-display amr-split__display">
+        {{ section.settings.section_headline }}
+      </h2>
+      {%- if section.settings.section_subline != blank -%}
+        <p class="amr-body amr-section-head__subline">{{ section.settings.section_subline }}</p>
+      {%- endif -%}
+    </header>
+  </div>
+
+  <div class="amr-split__grid">
+    {%- assign sides = 'left,right' | split: ',' -%}
+    {%- for s in sides -%}
+      {%- assign eyebrow_key = s | append: '_eyebrow' -%}
+      {%- assign headline_key = s | append: '_headline' -%}
+      {%- assign body_key = s | append: '_body' -%}
+      {%- assign cta_label_key = s | append: '_cta_label' -%}
+      {%- assign cta_link_key = s | append: '_cta_link' -%}
+      {%- assign image_key = s | append: '_image' -%}
+
+      {%- assign eyebrow = section.settings[eyebrow_key] -%}
+      {%- assign headline = section.settings[headline_key] -%}
+      {%- assign body = section.settings[body_key] -%}
+      {%- assign cta_label = section.settings[cta_label_key] -%}
+      {%- assign cta_link = section.settings[cta_link_key] -%}
+      {%- assign image = section.settings[image_key] -%}
+
+      <article class="amr-split__panel amr-split__panel--{{ s }}">
+        <div class="amr-split__media">
+          {%- if image != blank -%}
+            <img
+              src="{{ image | image_url: width: 1400 }}"
+              srcset="
+                {{ image | image_url: width: 700 }} 700w,
+                {{ image | image_url: width: 1000 }} 1000w,
+                {{ image | image_url: width: 1400 }} 1400w
+              "
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              width="{{ image.width }}"
+              height="{{ image.height }}"
+              alt=""
+              loading="lazy"
+            >
+          {%- else -%}
+            <div class="amr-split__placeholder amr-split__placeholder--{{ s }}" aria-hidden="true"></div>
+          {%- endif -%}
+        </div>
+        <div class="amr-split__content">
+          {%- if eyebrow != blank -%}
+            <p class="amr-eyebrow amr-split__eyebrow">{{ eyebrow }}</p>
+          {%- endif -%}
+          {%- if headline != blank -%}
+            <h3 class="amr-h2 amr-split__headline">{{ headline }}</h3>
+          {%- endif -%}
+          {%- if body != blank -%}
+            <p class="amr-body amr-split__body">{{ body }}</p>
+          {%- endif -%}
+          {%- if cta_label != blank -%}
+            <a class="amr-link amr-link--understated amr-split__cta" href="{{ cta_link | default: '#' }}">
+              {{ cta_label }} <span class="amr-arrow">&rarr;</span>
+            </a>
+          {%- endif -%}
+        </div>
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "GLOSS / GROWTH split",
+  "tag": "section",
+  "class": "amr-section amr-section--split",
+  "settings": [
+    { "type": "header", "content": "Section" },
+    { "type": "text", "id": "section_eyebrow", "label": "Eyebrow", "default": "THE AMR EDIT" },
+    { "type": "text", "id": "section_headline", "label": "Display headline", "default": "GLOSS. GROWTH." },
+    { "type": "text", "id": "section_subline", "label": "Subline", "default": "Two rituals that share a feeling." },
+    { "type": "header", "content": "Left panel (GLOSS / Lips)" },
+    { "type": "text", "id": "left_eyebrow", "label": "Eyebrow", "default": "LIPS" },
+    { "type": "text", "id": "left_headline", "label": "Headline", "default": "A soft, wearable shine." },
+    { "type": "textarea", "id": "left_body", "label": "Body", "default": "Glosses and lip tones made for everyday wear — the kind you reach for without thinking." },
+    { "type": "text", "id": "left_cta_label", "label": "CTA label", "default": "Shop Lip Care" },
+    { "type": "url", "id": "left_cta_link", "label": "CTA link" },
+    { "type": "image_picker", "id": "left_image", "label": "Image" },
+    { "type": "header", "content": "Right panel (GROWTH / Hair)" },
+    { "type": "text", "id": "right_eyebrow", "label": "Eyebrow", "default": "HAIR" },
+    { "type": "text", "id": "right_headline", "label": "Headline", "default": "Care that feels healthy." },
+    { "type": "textarea", "id": "right_body", "label": "Body", "default": "Oils and masks shaped around how hair actually feels — soft to the touch, light on the scalp." },
+    { "type": "text", "id": "right_cta_label", "label": "CTA label", "default": "Shop Hair Care" },
+    { "type": "url", "id": "right_cta_link", "label": "CTA link" },
+    { "type": "image_picker", "id": "right_image", "label": "Image" }
+  ],
+  "presets": [
+    { "name": "AMR GLOSS / GROWTH split", "category": "AMR" }
+  ]
+}
+{% endschema %}

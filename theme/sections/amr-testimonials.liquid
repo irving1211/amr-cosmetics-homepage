@@ -1,0 +1,67 @@
+{% comment %}
+  AMR Testimonials — three-up, ready for Judge.me/Loox replacement.
+  Renders 5 stars; structured to swap to a reviews app block when installed.
+{% endcomment %}
+
+<section
+  class="amr amr-reviews"
+  aria-labelledby="amr-reviews-heading-{{ section.id }}"
+>
+  <div class="amr-container">
+    <header class="amr-section-head amr-section-head--center">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="amr-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 id="amr-reviews-heading-{{ section.id }}" class="amr-h2">
+        {{ section.settings.headline }}
+      </h2>
+    </header>
+
+    <div class="amr-reviews__grid">
+      {%- assign reviews = 'one,two,three' | split: ',' -%}
+      {%- for r in reviews -%}
+        {%- assign quote_key = 'review_' | append: r | append: '_quote' -%}
+        {%- assign author_key = 'review_' | append: r | append: '_author' -%}
+        {%- assign quote = section.settings[quote_key] -%}
+        {%- assign author = section.settings[author_key] -%}
+        {%- if quote != blank -%}
+          <figure class="amr-review">
+            <div class="amr-review__stars" aria-label="Five out of five stars">
+              <span aria-hidden="true">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
+            </div>
+            <blockquote class="amr-review__quote">
+              <p>{{ quote }}</p>
+            </blockquote>
+            {%- if author != blank -%}
+              <figcaption class="amr-review__author">— {{ author }}</figcaption>
+            {%- endif -%}
+          </figure>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "tag": "section",
+  "class": "amr-section amr-section--reviews",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "REVIEWS" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "What our community says." },
+    { "type": "header", "content": "Review 1" },
+    { "type": "textarea", "id": "review_one_quote", "label": "Quote", "default": "The hair oil is a quiet favorite — soft, light, and I keep reaching for it." },
+    { "type": "text", "id": "review_one_author", "label": "Author", "default": "Sofía R." },
+    { "type": "header", "content": "Review 2" },
+    { "type": "textarea", "id": "review_two_quote", "label": "Quote", "default": "The Pink Gloss is the one I keep in every bag. Soft shine, never sticky." },
+    { "type": "text", "id": "review_two_author", "label": "Author", "default": "Mia L." },
+    { "type": "header", "content": "Review 3" },
+    { "type": "textarea", "id": "review_three_quote", "label": "Quote", "default": "Beautiful packaging, beautiful results. It feels like it was made with care." },
+    { "type": "text", "id": "review_three_author", "label": "Author", "default": "Andrea P." }
+  ],
+  "presets": [
+    { "name": "AMR Reviews", "category": "AMR" }
+  ]
+}
+{% endschema %}

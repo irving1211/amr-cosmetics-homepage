@@ -1,0 +1,69 @@
+{% comment %}
+  AMR Brand Intro — single editorial paragraph + pulled quote.
+  Quiet, restrained. Anchors the brand premise after the hero.
+{% endcomment %}
+
+<section
+  class="amr amr-intro"
+  aria-labelledby="amr-intro-heading-{{ section.id }}"
+>
+  <div class="amr-container amr-intro__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="amr-eyebrow amr-intro__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    <h2 id="amr-intro-heading-{{ section.id }}" class="amr-h2 amr-intro__headline">
+      {{ section.settings.headline }}
+    </h2>
+
+    {%- if section.settings.body != blank -%}
+      <p class="amr-body amr-intro__body">{{ section.settings.body }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.pulled_quote != blank -%}
+      <blockquote class="amr-intro__quote">
+        <p>{{ section.settings.pulled_quote }}</p>
+      </blockquote>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand intro",
+  "tag": "section",
+  "class": "amr-section amr-section--intro",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "ABOUT AMR"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Two rituals. One feeling."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>AMR began with two small ideas worth doing well — care for hair that feels healthy, and a gloss that feels like you. Every product is shaped for the in-between moments: the slow morning, the second look, the easy reach for something soft. Considered, never complicated.</p>"
+    },
+    {
+      "type": "text",
+      "id": "pulled_quote",
+      "label": "Pulled quote",
+      "default": "A quiet kind of polish."
+    }
+  ],
+  "presets": [
+    {
+      "name": "AMR Brand intro",
+      "category": "AMR"
+    }
+  ]
+}
+{% endschema %}

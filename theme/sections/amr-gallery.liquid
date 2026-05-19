@@ -1,0 +1,105 @@
+{% comment %}
+  AMR Editorial Gallery — six-tile masonry with mixed aspect ratios.
+  Recreates the energy of the Instagram grid without the IG clutter.
+  Tiles 1, 4, 6 are taller; 2, 3, 5 are square-ish — mobile collapses to one column.
+{% endcomment %}
+
+<section
+  class="amr amr-gallery"
+  aria-labelledby="amr-gallery-heading-{{ section.id }}"
+>
+  <div class="amr-container">
+    <header class="amr-section-head amr-section-head--center">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="amr-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 id="amr-gallery-heading-{{ section.id }}" class="amr-h2">
+        {{ section.settings.headline }}
+      </h2>
+      {%- if section.settings.subline != blank -%}
+        <p class="amr-body amr-section-head__subline">{{ section.settings.subline }}</p>
+      {%- endif -%}
+    </header>
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="amr-gallery__grid" role="list">
+        {%- for block in section.blocks -%}
+          {%- assign image = block.settings.image -%}
+          {%- assign link = block.settings.link -%}
+          {%- assign caption = block.settings.caption -%}
+          <li class="amr-gallery__tile amr-gallery__tile--{{ forloop.index }}">
+            {%- if link != blank -%}
+              <a class="amr-gallery__link" href="{{ link }}" rel="noopener" target="_blank">
+            {%- endif -%}
+              {%- if image != blank -%}
+                <img
+                  src="{{ image | image_url: width: 900 }}"
+                  srcset="
+                    {{ image | image_url: width: 500 }} 500w,
+                    {{ image | image_url: width: 800 }} 800w,
+                    {{ image | image_url: width: 1100 }} 1100w
+                  "
+                  sizes="(min-width: 1024px) 33vw, (min-width: 600px) 50vw, 100vw"
+                  width="{{ image.width }}"
+                  height="{{ image.height }}"
+                  alt="{{ caption | default: 'AMR Cosmetics' | escape }}"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <div class="amr-gallery__placeholder" aria-hidden="true"></div>
+              {%- endif -%}
+              {%- if caption != blank -%}
+                <p class="amr-gallery__caption">{{ caption }}</p>
+              {%- endif -%}
+            {%- if link != blank -%}
+              </a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if section.settings.instagram_handle != blank -%}
+      <div class="amr-gallery__follow">
+        <a
+          class="amr-link amr-link--understated"
+          href="{{ section.settings.instagram_url | default: '#' }}"
+          target="_blank"
+          rel="noopener"
+        >
+          {{ section.settings.instagram_handle }} <span class="amr-arrow">&rarr;</span>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial gallery",
+  "tag": "section",
+  "class": "amr-section amr-section--gallery",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "@AMR.COSMETICSS" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Inside the everyday." },
+    { "type": "text", "id": "subline", "label": "Subline", "default": "Follow along on Instagram." },
+    { "type": "text", "id": "instagram_handle", "label": "Instagram handle", "default": "@amr.cosmeticss" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram URL" }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "caption", "label": "Caption (alt + optional visible)" },
+        { "type": "url", "id": "link", "label": "Link (Instagram post or collection)" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "AMR Editorial gallery", "category": "AMR" }
+  ]
+}
+{% endschema %}

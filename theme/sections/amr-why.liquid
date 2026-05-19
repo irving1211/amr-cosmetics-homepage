@@ -1,0 +1,64 @@
+{% comment %}
+  AMR Why — four quiet value-prop columns. No icons. Hairline dividers.
+{% endcomment %}
+
+<section
+  class="amr amr-why"
+  aria-labelledby="amr-why-heading-{{ section.id }}"
+>
+  <div class="amr-container">
+    <header class="amr-section-head amr-section-head--center">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="amr-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 id="amr-why-heading-{{ section.id }}" class="amr-h2">
+        {{ section.settings.headline }}
+      </h2>
+    </header>
+
+    <ul class="amr-why__grid" role="list">
+      {%- assign cols = 'one,two,three,four' | split: ',' -%}
+      {%- for c in cols -%}
+        {%- assign title_key = 'col_' | append: c | append: '_title' -%}
+        {%- assign body_key = 'col_' | append: c | append: '_body' -%}
+        {%- assign title = section.settings[title_key] -%}
+        {%- assign body = section.settings[body_key] -%}
+        {%- if title != blank -%}
+          <li class="amr-why__item">
+            <h3 class="amr-why__title">{{ title }}</h3>
+            {%- if body != blank -%}
+              <p class="amr-body-sm amr-why__body">{{ body }}</p>
+            {%- endif -%}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why AMR",
+  "tag": "section",
+  "class": "amr-section amr-section--why",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "WHY AMR" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Made for the in-between." },
+    { "type": "header", "content": "Column 1" },
+    { "type": "text", "id": "col_one_title", "label": "Title", "default": "Considered formulas" },
+    { "type": "textarea", "id": "col_one_body", "label": "Body", "default": "Softly scented, comfortable to wear, easy to reach for." },
+    { "type": "header", "content": "Column 2" },
+    { "type": "text", "id": "col_two_title", "label": "Title", "default": "Hair & lip in one place" },
+    { "type": "textarea", "id": "col_two_body", "label": "Body", "default": "Two product worlds, one quiet aesthetic — built to live on the same shelf." },
+    { "type": "header", "content": "Column 3" },
+    { "type": "text", "id": "col_three_title", "label": "Title", "default": "Polished, never loud" },
+    { "type": "textarea", "id": "col_three_body", "label": "Body", "default": "Pieces that finish a look without taking it over." },
+    { "type": "header", "content": "Column 4" },
+    { "type": "text", "id": "col_four_title", "label": "Title", "default": "Small batches, real care" },
+    { "type": "textarea", "id": "col_four_body", "label": "Body", "default": "Made in considered quantities, packed with intention." }
+  ],
+  "presets": [
+    { "name": "AMR Why", "category": "AMR" }
+  ]
+}
+{% endschema %}

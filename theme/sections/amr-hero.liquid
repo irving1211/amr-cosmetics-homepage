@@ -1,0 +1,208 @@
+{% comment %}
+  AMR Hero — full-bleed editorial hero
+  Preserves the AMR script logo, leads with the tagline, dual CTA discipline.
+  Mobile-first, single layout, optional foreground image.
+{% endcomment %}
+
+{{ 'amr-homepage.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="amr amr-hero amr-hero--{{ section.settings.background_style | default: 'paper-warm' }}"
+  aria-labelledby="amr-hero-heading-{{ section.id }}"
+>
+  <div class="amr-container amr-hero__inner">
+    {%- if section.settings.show_script_logo and section.settings.script_logo != blank -%}
+      <div class="amr-hero__logo">
+        <img
+          src="{{ section.settings.script_logo | image_url: width: 480 }}"
+          srcset="
+            {{ section.settings.script_logo | image_url: width: 240 }} 240w,
+            {{ section.settings.script_logo | image_url: width: 480 }} 480w,
+            {{ section.settings.script_logo | image_url: width: 720 }} 720w
+          "
+          sizes="(min-width: 768px) 320px, 200px"
+          width="{{ section.settings.script_logo.width }}"
+          height="{{ section.settings.script_logo.height }}"
+          alt="AMR Cosmetics"
+          loading="eager"
+          fetchpriority="high"
+        >
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="amr-eyebrow amr-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    <h1 id="amr-hero-heading-{{ section.id }}" class="amr-display amr-hero__headline">
+      {{ section.settings.headline }}
+    </h1>
+
+    {%- if section.settings.subline != blank -%}
+      <p class="amr-body amr-hero__subline">{{ section.settings.subline }}</p>
+    {%- endif -%}
+
+    <div class="amr-hero__ctas">
+      {%- if section.settings.primary_cta_label != blank -%}
+        <a
+          href="{{ section.settings.primary_cta_link | default: '#' }}"
+          class="amr-button amr-button--primary"
+        >
+          {{ section.settings.primary_cta_label }}
+        </a>
+      {%- endif -%}
+
+      <div class="amr-hero__secondary-ctas" role="group" aria-label="Browse by category">
+        {%- if section.settings.secondary_cta_one_label != blank -%}
+          <a
+            href="{{ section.settings.secondary_cta_one_link | default: '#' }}"
+            class="amr-link amr-link--understated"
+          >
+            {{ section.settings.secondary_cta_one_label }}
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.secondary_cta_two_label != blank -%}
+          <span class="amr-hero__sep" aria-hidden="true">·</span>
+          <a
+            href="{{ section.settings.secondary_cta_two_link | default: '#' }}"
+            class="amr-link amr-link--understated"
+          >
+            {{ section.settings.secondary_cta_two_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- if section.settings.foreground_image != blank -%}
+    <div class="amr-hero__media" aria-hidden="true">
+      <img
+        src="{{ section.settings.foreground_image | image_url: width: 1600 }}"
+        srcset="
+          {{ section.settings.foreground_image | image_url: width: 800 }} 800w,
+          {{ section.settings.foreground_image | image_url: width: 1200 }} 1200w,
+          {{ section.settings.foreground_image | image_url: width: 1600 }} 1600w,
+          {{ section.settings.foreground_image | image_url: width: 2000 }} 2000w
+        "
+        sizes="100vw"
+        width="{{ section.settings.foreground_image.width }}"
+        height="{{ section.settings.foreground_image.height }}"
+        alt=""
+        loading="eager"
+        fetchpriority="high"
+      >
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "class": "amr-section amr-section--hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Identity"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_script_logo",
+      "label": "Show AMR script logo",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "script_logo",
+      "label": "AMR script logo (PNG with transparent background recommended)"
+    },
+    {
+      "type": "header",
+      "content": "Copy"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "EST. AMR · HAIR & LIP"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Where healthy hair meets glossy lips."
+    },
+    {
+      "type": "textarea",
+      "id": "subline",
+      "label": "Subline",
+      "default": "Polished essentials for the everyday — soft on skin, kind to hair, made for shine."
+    },
+    {
+      "type": "header",
+      "content": "Calls to action"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary CTA label",
+      "default": "Shop Bestsellers"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_one_label",
+      "label": "Secondary CTA 1 label",
+      "default": "Hair Care"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_one_link",
+      "label": "Secondary CTA 1 link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_two_label",
+      "label": "Secondary CTA 2 label",
+      "default": "Lip Care"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_two_link",
+      "label": "Secondary CTA 2 link"
+    },
+    {
+      "type": "header",
+      "content": "Visual"
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Background",
+      "options": [
+        { "value": "paper", "label": "Paper (white)" },
+        { "value": "paper-warm", "label": "Paper warm (off-white)" },
+        { "value": "paper-cool", "label": "Paper cool (cool off-white)" }
+      ],
+      "default": "paper-warm"
+    },
+    {
+      "type": "image_picker",
+      "id": "foreground_image",
+      "label": "Hero foreground image (optional)",
+      "info": "Large editorial composition. Leave empty for a pure type-led hero."
+    }
+  ],
+  "presets": [
+    {
+      "name": "AMR Hero",
+      "category": "AMR"
+    }
+  ]
+}
+{% endschema %}

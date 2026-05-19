@@ -1,0 +1,117 @@
+{% comment %}
+  AMR Build Your Ritual — three curated bundles. AOV driver.
+  Cards intentionally larger than featured-product cards. Image-led.
+{% endcomment %}
+
+<section
+  class="amr amr-routine"
+  aria-labelledby="amr-routine-heading-{{ section.id }}"
+>
+  <div class="amr-container">
+    <header class="amr-section-head amr-section-head--center">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="amr-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 id="amr-routine-heading-{{ section.id }}" class="amr-h2">
+        {{ section.settings.headline }}
+      </h2>
+      {%- if section.settings.subline != blank -%}
+        <p class="amr-body amr-section-head__subline">{{ section.settings.subline }}</p>
+      {%- endif -%}
+    </header>
+
+    <div class="amr-routine__grid">
+      {%- assign bundles = 'one,two,three' | split: ',' -%}
+      {%- for b in bundles -%}
+        {%- assign title_key = 'bundle_' | append: b | append: '_title' -%}
+        {%- assign body_key = 'bundle_' | append: b | append: '_body' -%}
+        {%- assign cta_label_key = 'bundle_' | append: b | append: '_cta_label' -%}
+        {%- assign cta_link_key = 'bundle_' | append: b | append: '_cta_link' -%}
+        {%- assign image_key = 'bundle_' | append: b | append: '_image' -%}
+        {%- assign price_key = 'bundle_' | append: b | append: '_price' -%}
+
+        {%- assign title = section.settings[title_key] -%}
+        {%- assign body = section.settings[body_key] -%}
+        {%- assign cta_label = section.settings[cta_label_key] -%}
+        {%- assign cta_link = section.settings[cta_link_key] -%}
+        {%- assign image = section.settings[image_key] -%}
+        {%- assign price = section.settings[price_key] -%}
+
+        {%- if title != blank -%}
+          <article class="amr-routine__card">
+            <div class="amr-routine__media">
+              {%- if image != blank -%}
+                <img
+                  src="{{ image | image_url: width: 900 }}"
+                  srcset="
+                    {{ image | image_url: width: 600 }} 600w,
+                    {{ image | image_url: width: 900 }} 900w,
+                    {{ image | image_url: width: 1200 }} 1200w
+                  "
+                  sizes="(min-width: 1024px) 32vw, (min-width: 600px) 48vw, 100vw"
+                  width="{{ image.width }}"
+                  height="{{ image.height }}"
+                  alt="{{ title | escape }}"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <div class="amr-routine__placeholder" aria-hidden="true"></div>
+              {%- endif -%}
+            </div>
+            <div class="amr-routine__caption">
+              <h3 class="amr-h3 amr-routine__title">{{ title }}</h3>
+              {%- if body != blank -%}
+                <p class="amr-body-sm amr-routine__body">{{ body }}</p>
+              {%- endif -%}
+              {%- if price != blank -%}
+                <p class="amr-routine__price">{{ price }}</p>
+              {%- endif -%}
+              {%- if cta_label != blank -%}
+                <a class="amr-link amr-link--understated amr-routine__cta" href="{{ cta_link | default: '#' }}">
+                  {{ cta_label }} <span class="amr-arrow">&rarr;</span>
+                </a>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Build your ritual",
+  "tag": "section",
+  "class": "amr-section amr-section--routine",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "SETS & RITUALS" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Build your ritual." },
+    { "type": "text", "id": "subline", "label": "Subline", "default": "Three curated pairings — designed to live together." },
+    { "type": "header", "content": "Bundle 1 — Hair Ritual" },
+    { "type": "text", "id": "bundle_one_title", "label": "Title", "default": "The Hair Ritual" },
+    { "type": "textarea", "id": "bundle_one_body", "label": "Body", "default": "Oil + mask. A weekly reset for soft, healthy-looking hair." },
+    { "type": "text", "id": "bundle_one_price", "label": "Price (display string)", "info": "Optional. Use for marketing prices like '$48 · save 15%'. Leave blank to omit." },
+    { "type": "text", "id": "bundle_one_cta_label", "label": "CTA label", "default": "Shop the Hair Ritual" },
+    { "type": "url", "id": "bundle_one_cta_link", "label": "CTA link" },
+    { "type": "image_picker", "id": "bundle_one_image", "label": "Image" },
+    { "type": "header", "content": "Bundle 2 — Lip Edit" },
+    { "type": "text", "id": "bundle_two_title", "label": "Title", "default": "The Lip Edit" },
+    { "type": "textarea", "id": "bundle_two_body", "label": "Body", "default": "Pink Gloss + Crystal Clear. Soft shine for every kind of day." },
+    { "type": "text", "id": "bundle_two_price", "label": "Price (display string)" },
+    { "type": "text", "id": "bundle_two_cta_label", "label": "CTA label", "default": "Shop the Lip Edit" },
+    { "type": "url", "id": "bundle_two_cta_link", "label": "CTA link" },
+    { "type": "image_picker", "id": "bundle_two_image", "label": "Image" },
+    { "type": "header", "content": "Bundle 3 — Complete Ritual" },
+    { "type": "text", "id": "bundle_three_title", "label": "Title", "default": "The Complete Ritual" },
+    { "type": "textarea", "id": "bundle_three_body", "label": "Body", "default": "Hair + lip, together. The full AMR feeling." },
+    { "type": "text", "id": "bundle_three_price", "label": "Price (display string)" },
+    { "type": "text", "id": "bundle_three_cta_label", "label": "CTA label", "default": "Shop the Complete Ritual" },
+    { "type": "url", "id": "bundle_three_cta_link", "label": "CTA link" },
+    { "type": "image_picker", "id": "bundle_three_image", "label": "Image" }
+  ],
+  "presets": [
+    { "name": "AMR Build your ritual", "category": "AMR" }
+  ]
+}
+{% endschema %}

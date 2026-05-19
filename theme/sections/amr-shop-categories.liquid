@@ -1,0 +1,99 @@
+{% comment %}
+  AMR Shop by Category — three premium photography-led tiles.
+  Hair / Lips / Sets. Whole tile is clickable; label and subline overlay at bottom-left.
+{% endcomment %}
+
+<section
+  class="amr amr-categories"
+  aria-labelledby="amr-categories-heading-{{ section.id }}"
+>
+  <div class="amr-container">
+    <header class="amr-section-head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="amr-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 id="amr-categories-heading-{{ section.id }}" class="amr-h2">
+        {{ section.settings.headline }}
+      </h2>
+    </header>
+
+    <div class="amr-categories__grid">
+      {%- assign tiles = 'one,two,three' | split: ',' -%}
+      {%- for slot in tiles -%}
+        {%- assign label_key = 'tile_' | append: slot | append: '_label' -%}
+        {%- assign subline_key = 'tile_' | append: slot | append: '_subline' -%}
+        {%- assign link_key = 'tile_' | append: slot | append: '_link' -%}
+        {%- assign image_key = 'tile_' | append: slot | append: '_image' -%}
+
+        {%- assign label = section.settings[label_key] -%}
+        {%- assign subline = section.settings[subline_key] -%}
+        {%- assign link = section.settings[link_key] -%}
+        {%- assign image = section.settings[image_key] -%}
+
+        {%- if label != blank -%}
+          <a class="amr-category-tile" href="{{ link | default: '#' }}">
+            <div class="amr-category-tile__media">
+              {%- if image != blank -%}
+                <img
+                  src="{{ image | image_url: width: 900 }}"
+                  srcset="
+                    {{ image | image_url: width: 600 }} 600w,
+                    {{ image | image_url: width: 900 }} 900w,
+                    {{ image | image_url: width: 1200 }} 1200w
+                  "
+                  sizes="(min-width: 1024px) 32vw, (min-width: 600px) 48vw, 100vw"
+                  width="{{ image.width }}"
+                  height="{{ image.height }}"
+                  alt="{{ label | escape }}"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <div class="amr-category-tile__placeholder" aria-hidden="true"></div>
+              {%- endif -%}
+            </div>
+            <div class="amr-category-tile__caption">
+              <h3 class="amr-h3 amr-category-tile__label">{{ label }}</h3>
+              {%- if subline != blank -%}
+                <p class="amr-body-sm amr-category-tile__subline">{{ subline }}</p>
+              {%- endif -%}
+              <span class="amr-link amr-link--understated amr-category-tile__cta" aria-hidden="true">
+                Shop {{ label }}
+                <span class="amr-arrow">&rarr;</span>
+              </span>
+            </div>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shop by category",
+  "tag": "section",
+  "class": "amr-section amr-section--categories",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "SHOP" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Find your everyday." },
+    { "type": "header", "content": "Tile 1 — Hair" },
+    { "type": "text", "id": "tile_one_label", "label": "Label", "default": "Hair Care" },
+    { "type": "text", "id": "tile_one_subline", "label": "Subline", "default": "Oils, masks, and scalp care for soft, healthy-looking hair." },
+    { "type": "url", "id": "tile_one_link", "label": "Link" },
+    { "type": "image_picker", "id": "tile_one_image", "label": "Image" },
+    { "type": "header", "content": "Tile 2 — Lips" },
+    { "type": "text", "id": "tile_two_label", "label": "Label", "default": "Lip Care" },
+    { "type": "text", "id": "tile_two_subline", "label": "Subline", "default": "Glosses and lip tones built for soft shine and easy wear." },
+    { "type": "url", "id": "tile_two_link", "label": "Link" },
+    { "type": "image_picker", "id": "tile_two_image", "label": "Image" },
+    { "type": "header", "content": "Tile 3 — Sets" },
+    { "type": "text", "id": "tile_three_label", "label": "Label", "default": "Sets & Rituals" },
+    { "type": "text", "id": "tile_three_subline", "label": "Subline", "default": "Curated pairings — for hair, for lips, or both." },
+    { "type": "url", "id": "tile_three_link", "label": "Link" },
+    { "type": "image_picker", "id": "tile_three_image", "label": "Image" }
+  ],
+  "presets": [
+    { "name": "AMR Shop by category", "category": "AMR" }
+  ]
+}
+{% endschema %}

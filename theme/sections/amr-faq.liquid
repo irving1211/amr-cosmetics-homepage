@@ -1,0 +1,62 @@
+{% comment %}
+  AMR FAQ — six-question accordion, native <details>/<summary> for resilience.
+  Progressive enhancement via amr-homepage.js (smooth-close, single-open variant).
+{% endcomment %}
+
+<section
+  class="amr amr-faq"
+  aria-labelledby="amr-faq-heading-{{ section.id }}"
+>
+  <div class="amr-container amr-faq__inner">
+    <header class="amr-section-head amr-section-head--center">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="amr-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 id="amr-faq-heading-{{ section.id }}" class="amr-h2">
+        {{ section.settings.headline }}
+      </h2>
+    </header>
+
+    <div class="amr-faq__list" data-amr-faq>
+      {%- for block in section.blocks -%}
+        <details class="amr-faq__item" data-amr-faq-item>
+          <summary class="amr-faq__question">
+            <span>{{ block.settings.question }}</span>
+            <span class="amr-faq__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="amr-faq__answer">
+            <div class="amr-faq__answer-inner">
+              {{ block.settings.answer }}
+            </div>
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "class": "amr-section amr-section--faq",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "GOOD TO KNOW" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Questions, answered." }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "richtext", "id": "answer", "label": "Answer" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "AMR FAQ", "category": "AMR" }
+  ]
+}
+{% endschema %}

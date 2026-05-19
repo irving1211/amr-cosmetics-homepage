@@ -1,0 +1,70 @@
+{% comment %}
+  AMR Email CTA — cocoa-warm full-width band. Posts to Shopify customer list by default.
+  Swap form action to Klaviyo/Mailchimp by editing this file (or wire as theme app block later).
+{% endcomment %}
+
+<section
+  class="amr amr-email-cta"
+  aria-labelledby="amr-email-heading-{{ section.id }}"
+>
+  <div class="amr-container amr-email-cta__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="amr-eyebrow amr-email-cta__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    <h2 id="amr-email-heading-{{ section.id }}" class="amr-display amr-email-cta__headline">
+      {{ section.settings.headline }}
+    </h2>
+
+    {%- if section.settings.subline != blank -%}
+      <p class="amr-body amr-email-cta__subline">{{ section.settings.subline }}</p>
+    {%- endif -%}
+
+    {% form 'customer', class: 'amr-email-cta__form' %}
+      <input type="hidden" name="contact[tags]" value="newsletter,homepage">
+      <label class="amr-visually-hidden" for="amr-email-{{ section.id }}">Email address</label>
+      <div class="amr-email-cta__field">
+        <input
+          id="amr-email-{{ section.id }}"
+          type="email"
+          name="contact[email]"
+          autocomplete="email"
+          required
+          placeholder="{{ section.settings.field_placeholder | default: 'Your email address' }}"
+          class="amr-email-cta__input"
+        >
+        <button type="submit" class="amr-button amr-button--ghost amr-email-cta__submit">
+          {{ section.settings.cta_label | default: 'Sign Up' }}
+        </button>
+      </div>
+      {%- if form.posted_successfully? -%}
+        <p class="amr-email-cta__success" role="status">Thanks — you're on the list.</p>
+      {%- elsif form.errors -%}
+        <p class="amr-email-cta__error" role="alert">{{ form.errors | default_errors }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.micro_note != blank -%}
+        <p class="amr-email-cta__micro">{{ section.settings.micro_note }}</p>
+      {%- endif -%}
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Email signup",
+  "tag": "section",
+  "class": "amr-section amr-section--email-cta",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "STAY IN TOUCH" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Join the AMR letter." },
+    { "type": "textarea", "id": "subline", "label": "Subline", "default": "Soft launches, early access, and the occasional quiet moment in your inbox." },
+    { "type": "text", "id": "field_placeholder", "label": "Field placeholder", "default": "Your email address" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Sign Up" },
+    { "type": "text", "id": "micro_note", "label": "Micro note", "default": "No spam — just AMR. Unsubscribe anytime." }
+  ],
+  "presets": [
+    { "name": "AMR Email signup", "category": "AMR" }
+  ]
+}
+{% endschema %}

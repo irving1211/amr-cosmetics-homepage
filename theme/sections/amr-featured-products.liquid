@@ -1,0 +1,110 @@
+{% comment %}
+  AMR Featured Products — 4-up custom card grid pulled from a chosen collection.
+  Uses amr-product-card snippet. Per-card eyebrows supplied via blocks.
+{% endcomment %}
+
+<section
+  class="amr amr-featured"
+  aria-labelledby="amr-featured-heading-{{ section.id }}"
+>
+  <div class="amr-container">
+    <header class="amr-section-head amr-section-head--center">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="amr-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 id="amr-featured-heading-{{ section.id }}" class="amr-h2">
+        {{ section.settings.headline }}
+      </h2>
+      {%- if section.settings.subline != blank -%}
+        <p class="amr-body amr-section-head__subline">{{ section.settings.subline }}</p>
+      {%- endif -%}
+    </header>
+
+    {%- liquid
+      assign source = section.settings.collection
+      assign limit = section.settings.products_per_row_desktop | default: 4
+      if section.blocks.size > 0
+        assign limit = section.blocks.size
+      endif
+    -%}
+
+    <div class="amr-product-grid amr-product-grid--cols-{{ section.settings.products_per_row_desktop | default: 4 }}">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- assign p = all_products[block.settings.product] -%}
+          {%- if p != blank -%}
+            {% render 'amr-product-card',
+              product: p,
+              eyebrow: block.settings.eyebrow,
+              aspect: 'portrait',
+              show_second_image: true
+            %}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- elsif source != blank -%}
+        {%- for product in source.products limit: limit -%}
+          {% render 'amr-product-card',
+            product: product,
+            eyebrow: '',
+            aspect: 'portrait',
+            show_second_image: true
+          %}
+        {%- endfor -%}
+      {%- else -%}
+        <p class="amr-body amr-empty">Pick a collection or add product blocks in the theme editor.</p>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.view_all_label != blank and section.settings.view_all_link != blank -%}
+      <div class="amr-featured__view-all">
+        <a class="amr-link amr-link--understated" href="{{ section.settings.view_all_link }}">
+          {{ section.settings.view_all_label }}
+          <span class="amr-arrow">&rarr;</span>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured products",
+  "tag": "section",
+  "class": "amr-section amr-section--featured",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "BESTSELLERS" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "The shortlist." },
+    { "type": "text", "id": "subline", "label": "Subline", "default": "Quietly loved, quickly reordered." },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection (fallback if no product blocks)"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_desktop",
+      "label": "Products per row (desktop)",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    { "type": "text", "id": "view_all_label", "label": "View-all label", "default": "View All Products" },
+    { "type": "url", "id": "view_all_link", "label": "View-all link" }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "eyebrow", "label": "Card eyebrow", "info": "Small uppercase label above title — e.g. HAIR, LIPS, SET" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "AMR Featured products", "category": "AMR" }
+  ]
+}
+{% endschema %}
