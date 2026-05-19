@@ -18,8 +18,8 @@
     body { margin: 0; background: var(--amr-paper); color: var(--amr-ink); font-family: var(--amr-font-body); }
     main { display: block; }
 
-    /* Notice banner */
-    .preview-banner {
+    /* Announcement bar */
+    .amr-announce {
       background: var(--amr-cocoa);
       color: var(--amr-paper-warm);
       padding: 10px 20px;
@@ -29,9 +29,8 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
     }
-    .preview-banner strong { font-weight: 600; }
 
-    /* Top nav (preview-only stand-in) */
+    /* Top nav */
     .preview-nav {
       display: flex;
       align-items: center;
@@ -123,12 +122,10 @@
 </head>
 <body>
 
-  <!-- Preview banner -->
-  <div class="preview-banner">
-    <strong>Design preview</strong> &nbsp;·&nbsp; AMR Cosmetics homepage v1.0 &nbsp;·&nbsp; final imagery and copy can evolve
-  </div>
+  <!-- Announcement bar (Shopify-side: announcement bar section) -->
+  <div class="amr-announce">Complimentary shipping on orders over $50</div>
 
-  <!-- Header / Nav -->
+  <!-- Header / Nav (Shopify-side: amr-header section) -->
   <header class="preview-nav" role="banner">
     <nav class="preview-nav__group" aria-label="Shop navigation">
       <a href="#categories">Shop</a>

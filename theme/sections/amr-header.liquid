@@ -1,0 +1,130 @@
+{% comment %}
+  AMR Header — announcement bar + three-column nav (Shop links / centered script mark / Account-Cart).
+  Matches the static homepage preview 1:1.
+{% endcomment %}
+
+{{ 'amr-homepage.css' | asset_url | stylesheet_tag }}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+
+<style>
+  .amr-announce {
+    background: var(--amr-cocoa);
+    color: var(--amr-paper-warm);
+    padding: 10px 20px;
+    text-align: center;
+    font-family: var(--amr-font-body);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .amr-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px clamp(20px, 5vw, 80px);
+    background: var(--amr-paper);
+    border-bottom: 1px solid var(--amr-hairline);
+  }
+  .amr-nav__group {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--amr-ink);
+  }
+  .amr-nav__group a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity .2s;
+  }
+  .amr-nav__group a:hover { opacity: 0.65; }
+  .amr-nav__mark-img { display: block; height: clamp(34px, 4vw, 48px); width: auto; }
+  .amr-nav__mark-text {
+    font-family: "Pinyon Script", cursive;
+    font-size: clamp(34px, 4vw, 48px);
+    color: var(--amr-ink);
+    line-height: 1;
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+  @media (max-width: 700px) {
+    .amr-nav { padding: 18px 20px; }
+    .amr-nav__group { gap: 16px; font-size: 12px; }
+    .amr-nav__group:first-child a:not(:first-child) { display: none; }
+  }
+</style>
+
+{%- if section.settings.show_announcement and section.settings.announcement_text != blank -%}
+  <div class="amr-announce">{{ section.settings.announcement_text }}</div>
+{%- endif -%}
+
+<header class="amr-nav" role="banner">
+  <nav class="amr-nav__group" aria-label="Shop navigation">
+    {%- if section.settings.link_one_label != blank -%}
+      <a href="{{ section.settings.link_one_link | default: '#' }}">{{ section.settings.link_one_label }}</a>
+    {%- endif -%}
+    {%- if section.settings.link_two_label != blank -%}
+      <a href="{{ section.settings.link_two_link | default: '#' }}">{{ section.settings.link_two_label }}</a>
+    {%- endif -%}
+    {%- if section.settings.link_three_label != blank -%}
+      <a href="{{ section.settings.link_three_link | default: '#' }}">{{ section.settings.link_three_label }}</a>
+    {%- endif -%}
+    {%- if section.settings.link_four_label != blank -%}
+      <a href="{{ section.settings.link_four_link | default: '#' }}">{{ section.settings.link_four_label }}</a>
+    {%- endif -%}
+  </nav>
+
+  {%- if section.settings.script_logo != blank -%}
+    <a href="{{ routes.root_url }}" aria-label="{{ shop.name }} — home">
+      <img
+        class="amr-nav__mark-img"
+        src="{{ section.settings.script_logo | image_url: width: 240 }}"
+        srcset="{{ section.settings.script_logo | image_url: width: 240 }} 1x, {{ section.settings.script_logo | image_url: width: 480 }} 2x"
+        width="{{ section.settings.script_logo.width }}"
+        height="{{ section.settings.script_logo.height }}"
+        alt="{{ shop.name }}"
+        loading="eager"
+        fetchpriority="high"
+      >
+    </a>
+  {%- else -%}
+    <a href="{{ routes.root_url }}" class="amr-nav__mark-text" aria-label="{{ shop.name }} — home">amr</a>
+  {%- endif -%}
+
+  <nav class="amr-nav__group" aria-label="Account navigation">
+    <a href="{{ routes.search_url }}">Search</a>
+    <a href="{{ routes.account_url }}">Account</a>
+    <a href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "AMR Header",
+  "tag": "header",
+  "class": "amr-header-section",
+  "settings": [
+    { "type": "header", "content": "Announcement bar" },
+    { "type": "checkbox", "id": "show_announcement", "label": "Show announcement bar", "default": true },
+    { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "Complimentary shipping on orders over $50" },
+    { "type": "header", "content": "Identity" },
+    { "type": "image_picker", "id": "script_logo", "label": "AMR script logo (PNG, transparent background)", "info": "If empty, falls back to a script web font." },
+    { "type": "header", "content": "Left nav links" },
+    { "type": "text", "id": "link_one_label", "label": "Link 1 label", "default": "Shop" },
+    { "type": "url", "id": "link_one_link", "label": "Link 1 URL" },
+    { "type": "text", "id": "link_two_label", "label": "Link 2 label", "default": "Hair" },
+    { "type": "url", "id": "link_two_link", "label": "Link 2 URL" },
+    { "type": "text", "id": "link_three_label", "label": "Link 3 label", "default": "Lip" },
+    { "type": "url", "id": "link_three_link", "label": "Link 3 URL" },
+    { "type": "text", "id": "link_four_label", "label": "Link 4 label", "default": "Sets" },
+    { "type": "url", "id": "link_four_link", "label": "Link 4 URL" }
+  ],
+  "presets": [
+    { "name": "AMR Header", "category": "AMR" }
+  ]
+}
+{% endschema %}

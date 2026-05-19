@@ -6,28 +6,46 @@
 
 {{ 'amr-homepage.css' | asset_url | stylesheet_tag }}
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+<style>
+  .amr-hero__logo--script {
+    font-family: "Pinyon Script", cursive;
+    font-size: clamp(88px, 13vw, 200px);
+    color: var(--amr-ink);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+</style>
+
 <section
   class="amr amr-hero amr-hero--{{ section.settings.background_style | default: 'paper-warm' }}"
   aria-labelledby="amr-hero-heading-{{ section.id }}"
 >
   <div class="amr-container amr-hero__inner">
-    {%- if section.settings.show_script_logo and section.settings.script_logo != blank -%}
-      <div class="amr-hero__logo">
-        <img
-          src="{{ section.settings.script_logo | image_url: width: 480 }}"
-          srcset="
-            {{ section.settings.script_logo | image_url: width: 240 }} 240w,
-            {{ section.settings.script_logo | image_url: width: 480 }} 480w,
-            {{ section.settings.script_logo | image_url: width: 720 }} 720w
-          "
-          sizes="(min-width: 768px) 320px, 200px"
-          width="{{ section.settings.script_logo.width }}"
-          height="{{ section.settings.script_logo.height }}"
-          alt="AMR Cosmetics"
-          loading="eager"
-          fetchpriority="high"
-        >
-      </div>
+    {%- if section.settings.show_script_logo -%}
+      {%- if section.settings.script_logo != blank -%}
+        <div class="amr-hero__logo">
+          <img
+            src="{{ section.settings.script_logo | image_url: width: 480 }}"
+            srcset="
+              {{ section.settings.script_logo | image_url: width: 240 }} 240w,
+              {{ section.settings.script_logo | image_url: width: 480 }} 480w,
+              {{ section.settings.script_logo | image_url: width: 720 }} 720w
+            "
+            sizes="(min-width: 768px) 320px, 200px"
+            width="{{ section.settings.script_logo.width }}"
+            height="{{ section.settings.script_logo.height }}"
+            alt="AMR Cosmetics"
+            loading="eager"
+            fetchpriority="high"
+          >
+        </div>
+      {%- else -%}
+        <div class="amr-hero__logo amr-hero__logo--script" aria-label="AMR Cosmetics">amr</div>
+      {%- endif -%}
     {%- endif -%}
 
     {%- if section.settings.eyebrow != blank -%}

@@ -1,0 +1,182 @@
+{% comment %}
+  AMR Footer — five-column footer with brand mark, shop/about/support/connect columns + legal row.
+  Matches the static homepage preview 1:1.
+{% endcomment %}
+
+<style>
+  .amr-footer {
+    background: var(--amr-paper);
+    border-top: 1px solid var(--amr-hairline);
+    padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 80px);
+    color: var(--amr-ink);
+  }
+  .amr-footer__grid {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  @media (min-width: 768px) {
+    .amr-footer__grid { grid-template-columns: 1.4fr repeat(4, 1fr); gap: 40px; }
+  }
+  .amr-footer__mark {
+    font-family: "Pinyon Script", cursive;
+    font-size: 64px;
+    color: var(--amr-ink);
+    line-height: 1;
+    display: block;
+    margin-bottom: 14px;
+    text-decoration: none;
+  }
+  .amr-footer__mark-img { display: block; height: 64px; width: auto; margin-bottom: 14px; }
+  .amr-footer__tag {
+    font-family: var(--amr-font-display);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--amr-ink-mute);
+  }
+  .amr-footer__col h4 {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--amr-ink-mute);
+    margin: 0 0 16px;
+  }
+  .amr-footer__col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .amr-footer__col a {
+    color: var(--amr-ink-soft);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color .2s;
+  }
+  .amr-footer__col a:hover { color: var(--amr-cocoa); }
+  .amr-footer__legal {
+    max-width: 1440px;
+    margin: clamp(40px, 5vw, 60px) auto 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--amr-hairline);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--amr-ink-mute);
+  }
+  .amr-footer__legal a { color: inherit; text-decoration: none; margin-left: 16px; }
+  .amr-footer__legal a:hover { color: var(--amr-cocoa); }
+</style>
+
+<footer class="amr-footer">
+  <div class="amr-footer__grid">
+
+    <div class="amr-footer__brand">
+      {%- if section.settings.footer_logo != blank -%}
+        <img class="amr-footer__mark-img" src="{{ section.settings.footer_logo | image_url: width: 240 }}" alt="{{ shop.name }}" loading="lazy">
+      {%- else -%}
+        <a class="amr-footer__mark" href="{{ routes.root_url }}" aria-label="{{ shop.name }} — home">amr</a>
+      {%- endif -%}
+      {%- if section.settings.tagline != blank -%}
+        <p class="amr-footer__tag">{{ section.settings.tagline }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- assign columns = 'one,two,three,four' | split: ',' -%}
+    {%- for col in columns -%}
+      {%- assign heading_key = 'col_' | append: col | append: '_heading' -%}
+      {%- assign menu_key = 'col_' | append: col | append: '_menu' -%}
+      {%- assign heading = section.settings[heading_key] -%}
+      {%- assign menu_handle = section.settings[menu_key] -%}
+      {%- if heading != blank or menu_handle != blank -%}
+        <div class="amr-footer__col">
+          {%- if heading != blank -%}
+            <h4>{{ heading }}</h4>
+          {%- endif -%}
+          {%- if menu_handle != blank and linklists[menu_handle].links.size > 0 -%}
+            <ul>
+              {%- for link in linklists[menu_handle].links -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          {%- elsif col == 'one' -%}
+            <ul>
+              <li><a href="{{ routes.all_products_collection_url }}">Hair Care</a></li>
+              <li><a href="{{ routes.all_products_collection_url }}">Lip Care</a></li>
+              <li><a href="{{ routes.all_products_collection_url }}">Sets &amp; Rituals</a></li>
+              <li><a href="{{ routes.all_products_collection_url }}">All Products</a></li>
+            </ul>
+          {%- elsif col == 'two' -%}
+            <ul>
+              <li><a href="/pages/our-story">Our Story</a></li>
+              <li><a href="/pages/ingredients">Ingredients</a></li>
+            </ul>
+          {%- elsif col == 'three' -%}
+            <ul>
+              <li><a href="/pages/shipping">Shipping</a></li>
+              <li><a href="/pages/returns">Returns</a></li>
+              <li><a href="/pages/faq">FAQ</a></li>
+              <li><a href="/pages/contact">Contact</a></li>
+            </ul>
+          {%- elsif col == 'four' -%}
+            <ul>
+              {%- if section.settings.instagram_url != blank -%}
+                <li><a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener">{{ section.settings.instagram_handle | default: 'Instagram' }}</a></li>
+              {%- endif -%}
+              {%- if section.settings.contact_email != blank -%}
+                <li><a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a></li>
+              {%- endif -%}
+            </ul>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+  </div>
+
+  <div class="amr-footer__legal">
+    <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</span>
+    <span>
+      <a href="/policies/privacy-policy">Privacy</a>
+      <a href="/policies/terms-of-service">Terms</a>
+    </span>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "AMR Footer",
+  "tag": "footer",
+  "class": "amr-footer-section",
+  "settings": [
+    { "type": "header", "content": "Brand block" },
+    { "type": "image_picker", "id": "footer_logo", "label": "Footer logo (optional)" },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Where healthy hair meets glossy lips." },
+    { "type": "header", "content": "Column 1 — Shop" },
+    { "type": "text", "id": "col_one_heading", "label": "Heading", "default": "Shop" },
+    { "type": "link_list", "id": "col_one_menu", "label": "Menu (overrides defaults)" },
+    { "type": "header", "content": "Column 2 — About" },
+    { "type": "text", "id": "col_two_heading", "label": "Heading", "default": "About" },
+    { "type": "link_list", "id": "col_two_menu", "label": "Menu" },
+    { "type": "header", "content": "Column 3 — Support" },
+    { "type": "text", "id": "col_three_heading", "label": "Heading", "default": "Support" },
+    { "type": "link_list", "id": "col_three_menu", "label": "Menu" },
+    { "type": "header", "content": "Column 4 — Connect" },
+    { "type": "text", "id": "col_four_heading", "label": "Heading", "default": "Connect" },
+    { "type": "text", "id": "instagram_handle", "label": "Instagram handle (visible)", "default": "@amr.cosmeticss" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram URL" },
+    { "type": "text", "id": "contact_email", "label": "Contact email", "default": "hello@amrcosmetics.com" }
+  ],
+  "presets": [
+    { "name": "AMR Footer", "category": "AMR" }
+  ]
+}
+{% endschema %}
