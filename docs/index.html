@@ -563,6 +563,9 @@
     .amr-email-cta .amr-button--ghost {
       color: var(--amr-paper-warm); border-color: var(--amr-paper-warm);
     }
+    /* Kill the faint white panel bg + shift right-panel image left so any edge bleed disappears */
+    .amr-split__media { background: var(--amr-cocoa) !important; }
+    .amr-split__panel--right .amr-split__media img { object-position: 30% center !important; }
 
     /* ===== Section spacing normalization ===== */
     .amr-section,
