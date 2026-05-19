@@ -1,12 +1,34 @@
 {% comment %}
-  AMR Testimonials — three-up, ready for Judge.me/Loox replacement.
-  Renders 5 stars; structured to swap to a reviews app block when installed.
+  AMR Reviews — honest empty state by default.
+  When `reviews_app_block` is set, that block renders instead (Judge.me / Loox / etc.)
+  Otherwise: dashed placeholder cards explicitly marked as ready-for-app.
+  No fabricated quotes are shipped.
 {% endcomment %}
 
-<section
-  class="amr amr-reviews"
-  aria-labelledby="amr-reviews-heading-{{ section.id }}"
->
+<style>
+  .amr-reviews-empty .amr-reviews__grid { gap: clamp(24px, 3vw, 40px); }
+  .amr-review--placeholder {
+    background: var(--amr-paper);
+    border: 1px dashed var(--amr-hairline-strong);
+    padding: clamp(28px, 3vw, 40px);
+    display: flex; flex-direction: column; gap: 14px;
+    color: var(--amr-ink-mute);
+    text-align: left;
+  }
+  .amr-review--placeholder .amr-review__stars { color: var(--amr-hairline-strong); }
+  .amr-review--placeholder .amr-review__quote { color: var(--amr-ink-mute); }
+  .amr-review--placeholder .amr-review__quote p { font-style: italic; margin: 0; }
+  .amr-reviews-empty__note {
+    max-width: 640px;
+    margin: clamp(24px, 4vw, 40px) auto 0;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--amr-ink-mute);
+    letter-spacing: 0.02em;
+  }
+</style>
+
+<section class="amr amr-reviews amr-reviews-empty" aria-labelledby="amr-reviews-heading-{{ section.id }}">
   <div class="amr-container">
     <header class="amr-section-head amr-section-head--center">
       {%- if section.settings.eyebrow != blank -%}
@@ -17,28 +39,42 @@
       </h2>
     </header>
 
-    <div class="amr-reviews__grid">
-      {%- assign reviews = 'one,two,three' | split: ',' -%}
-      {%- for r in reviews -%}
-        {%- assign quote_key = 'review_' | append: r | append: '_quote' -%}
-        {%- assign author_key = 'review_' | append: r | append: '_author' -%}
-        {%- assign quote = section.settings[quote_key] -%}
-        {%- assign author = section.settings[author_key] -%}
-        {%- if quote != blank -%}
-          <figure class="amr-review">
-            <div class="amr-review__stars" aria-label="Five out of five stars">
-              <span aria-hidden="true">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
-            </div>
+    {%- if section.blocks.size > 0 -%}
+      <div class="amr-reviews__grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'app' -%}
+            {% render block %}
+          {%- elsif block.type == 'review' -%}
+            <figure class="amr-review" {{ block.shopify_attributes }}>
+              <div class="amr-review__stars" aria-label="Five out of five stars">
+                <span aria-hidden="true">★ ★ ★ ★ ★</span>
+              </div>
+              <blockquote class="amr-review__quote">
+                <p>{{ block.settings.quote }}</p>
+              </blockquote>
+              {%- if block.settings.author != blank -%}
+                <figcaption class="amr-review__author">— {{ block.settings.author }}</figcaption>
+              {%- endif -%}
+            </figure>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="amr-reviews__grid" aria-label="Reviews placeholder — awaiting real customer reviews">
+        {%- for i in (1..3) -%}
+          <figure class="amr-review amr-review--placeholder">
+            <div class="amr-review__stars" aria-hidden="true"><span>★ ★ ★ ★ ★</span></div>
             <blockquote class="amr-review__quote">
-              <p>{{ quote }}</p>
+              <p>{{ section.settings.placeholder_quote | default: 'Real customer review will appear here once a reviews app is connected.' }}</p>
             </blockquote>
-            {%- if author != blank -%}
-              <figcaption class="amr-review__author">— {{ author }}</figcaption>
-            {%- endif -%}
+            <figcaption class="amr-review__author">— Customer name</figcaption>
           </figure>
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
+        {%- endfor -%}
+      </div>
+      {%- if section.settings.placeholder_note != blank -%}
+        <p class="amr-reviews-empty__note">{{ section.settings.placeholder_note }}</p>
+      {%- endif -%}
+    {%- endif -%}
   </div>
 </section>
 
@@ -47,21 +83,30 @@
   "name": "Reviews",
   "tag": "section",
   "class": "amr-section amr-section--reviews",
+  "max_blocks": 12,
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "REVIEWS" },
-    { "type": "text", "id": "headline", "label": "Headline", "default": "What our community says." },
-    { "type": "header", "content": "Review 1" },
-    { "type": "textarea", "id": "review_one_quote", "label": "Quote", "default": "The hair oil is a quiet favorite — soft, light, and I keep reaching for it." },
-    { "type": "text", "id": "review_one_author", "label": "Author", "default": "Sofía R." },
-    { "type": "header", "content": "Review 2" },
-    { "type": "textarea", "id": "review_two_quote", "label": "Quote", "default": "The Pink Gloss is the one I keep in every bag. Soft shine, never sticky." },
-    { "type": "text", "id": "review_two_author", "label": "Author", "default": "Mia L." },
-    { "type": "header", "content": "Review 3" },
-    { "type": "textarea", "id": "review_three_quote", "label": "Quote", "default": "Beautiful packaging, beautiful results. It feels like it was made with care." },
-    { "type": "text", "id": "review_three_author", "label": "Author", "default": "Andrea P." }
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Loved by the AMR community." },
+    { "type": "header", "content": "Empty-state placeholders" },
+    { "type": "text", "id": "placeholder_quote", "label": "Placeholder quote (shown until reviews exist)", "default": "Real customer review will appear here once a reviews app is connected." },
+    { "type": "textarea", "id": "placeholder_note", "label": "Placeholder note", "default": "Reviews section is structured and ready — once a reviews app is installed, real customer quotes populate here automatically." }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Manual review (only use for real reviews)",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote (real customer quote only — never fabricate)" },
+        { "type": "text", "id": "author", "label": "Author" }
+      ]
+    },
+    {
+      "type": "@app",
+      "name": "Reviews app block (Judge.me / Loox / etc.)"
+    }
   ],
   "presets": [
-    { "name": "AMR Reviews", "category": "AMR" }
+    { "name": "AMR Reviews (empty state)", "category": "AMR" }
   ]
 }
 {% endschema %}

@@ -1,117 +1,156 @@
 {% comment %}
-  AMR Hero — full-bleed editorial hero
-  Preserves the AMR script logo, leads with the tagline, dual CTA discipline.
-  Mobile-first, single layout, optional foreground image.
+  AMR Hero — image-led split.
+  Left: AMR mark (Arapey italic — matches live store), eyebrow, headline, sub, CTAs.
+  Right: hero image (full-bleed cover).
+  Stacks on mobile (image on top, copy below).
 {% endcomment %}
 
 {{ 'amr-homepage.css' | asset_url | stylesheet_tag }}
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-  .amr-hero__logo--script {
-    font-family: "Pinyon Script", cursive;
-    font-size: clamp(88px, 13vw, 200px);
+  .amr-mark {
+    font-family: "Arapey", serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0.02em;
     color: var(--amr-ink);
     line-height: 1;
-    margin-bottom: 8px;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .amr-mark--xl { font-size: clamp(56px, 7vw, 96px); }
+  .amr-mark__sub {
+    display: block;
+    font-family: var(--amr-font-body);
+    font-style: normal;
+    font-size: 0.36em;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--amr-ink);
+    margin-top: 0.3em;
+    line-height: 1;
+  }
+  .amr-hero-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: clamp(560px, 80vh, 820px);
+    background: var(--amr-paper-warm);
+  }
+  @media (min-width: 900px) {
+    .amr-hero-split { grid-template-columns: minmax(420px, 1fr) minmax(420px, 1.1fr); }
+  }
+  .amr-hero-split__copy {
+    padding: clamp(48px, 8vw, 96px) clamp(24px, 6vw, 80px);
+    display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+    gap: clamp(20px, 3vw, 32px);
+    max-width: 640px;
+    order: 2;
+  }
+  @media (min-width: 900px) {
+    .amr-hero-split__copy { order: 1; max-width: none; padding-right: clamp(40px, 5vw, 80px); }
+  }
+  .amr-hero-split__eyebrow { color: var(--amr-ink-mute); }
+  .amr-hero-split__mark { margin-bottom: 4px; }
+  .amr-hero-split__headline {
+    font-family: var(--amr-font-display); font-weight: 400;
+    font-size: clamp(2.25rem, 1rem + 3.5vw, 3.5rem);
+    line-height: 1.08; letter-spacing: -0.01em; color: var(--amr-ink);
+    max-width: 14ch; margin: 0;
+  }
+  .amr-hero-split__sub { color: var(--amr-ink-soft); max-width: 44ch; }
+  .amr-hero-split__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-top: 8px; }
+  .amr-hero-split__media {
+    position: relative; overflow: hidden;
+    background: var(--amr-cocoa);
+    min-height: 420px; order: 1;
+  }
+  @media (min-width: 900px) { .amr-hero-split__media { order: 2; min-height: 0; } }
+  .amr-hero-split__media img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+  .amr-hero-split__media-fallback {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--amr-cocoa), var(--amr-brown));
   }
 </style>
 
-<section
-  class="amr amr-hero amr-hero--{{ section.settings.background_style | default: 'paper-warm' }}"
-  aria-labelledby="amr-hero-heading-{{ section.id }}"
->
-  <div class="amr-container amr-hero__inner">
+<section class="amr amr-hero-split" aria-labelledby="amr-hero-heading-{{ section.id }}">
+  <div class="amr-hero-split__copy">
     {%- if section.settings.show_script_logo -%}
       {%- if section.settings.script_logo != blank -%}
-        <div class="amr-hero__logo">
-          <img
-            src="{{ section.settings.script_logo | image_url: width: 480 }}"
-            srcset="
-              {{ section.settings.script_logo | image_url: width: 240 }} 240w,
-              {{ section.settings.script_logo | image_url: width: 480 }} 480w,
-              {{ section.settings.script_logo | image_url: width: 720 }} 720w
-            "
-            sizes="(min-width: 768px) 320px, 200px"
-            width="{{ section.settings.script_logo.width }}"
-            height="{{ section.settings.script_logo.height }}"
-            alt="AMR Cosmetics"
-            loading="eager"
-            fetchpriority="high"
-          >
-        </div>
+        <img
+          src="{{ section.settings.script_logo | image_url: width: 420 }}"
+          srcset="{{ section.settings.script_logo | image_url: width: 420 }} 1x, {{ section.settings.script_logo | image_url: width: 840 }} 2x"
+          width="{{ section.settings.script_logo.width }}"
+          height="{{ section.settings.script_logo.height }}"
+          alt="{{ shop.name }}"
+          loading="eager"
+          fetchpriority="high"
+          style="max-width: 320px; height: auto; display: block;"
+        >
       {%- else -%}
-        <div class="amr-hero__logo amr-hero__logo--script" aria-label="AMR Cosmetics">amr</div>
+        <span class="amr-mark amr-mark--xl amr-hero-split__mark" aria-hidden="true">
+          AMR<span class="amr-mark__sub">Cosmetics</span>
+        </span>
       {%- endif -%}
     {%- endif -%}
 
     {%- if section.settings.eyebrow != blank -%}
-      <p class="amr-eyebrow amr-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+      <p class="amr-eyebrow amr-hero-split__eyebrow">{{ section.settings.eyebrow }}</p>
     {%- endif -%}
 
-    <h1 id="amr-hero-heading-{{ section.id }}" class="amr-display amr-hero__headline">
+    <h1 id="amr-hero-heading-{{ section.id }}" class="amr-hero-split__headline">
       {{ section.settings.headline }}
     </h1>
 
     {%- if section.settings.subline != blank -%}
-      <p class="amr-body amr-hero__subline">{{ section.settings.subline }}</p>
+      <p class="amr-body amr-hero-split__sub">{{ section.settings.subline }}</p>
     {%- endif -%}
 
-    <div class="amr-hero__ctas">
+    <div class="amr-hero-split__ctas">
       {%- if section.settings.primary_cta_label != blank -%}
-        <a
-          href="{{ section.settings.primary_cta_link | default: '#' }}"
-          class="amr-button amr-button--primary"
-        >
+        <a href="{{ section.settings.primary_cta_link | default: '#' }}" class="amr-button amr-button--primary">
           {{ section.settings.primary_cta_label }}
         </a>
       {%- endif -%}
-
-      <div class="amr-hero__secondary-ctas" role="group" aria-label="Browse by category">
-        {%- if section.settings.secondary_cta_one_label != blank -%}
-          <a
-            href="{{ section.settings.secondary_cta_one_link | default: '#' }}"
-            class="amr-link amr-link--understated"
-          >
-            {{ section.settings.secondary_cta_one_label }}
-          </a>
-        {%- endif -%}
-
-        {%- if section.settings.secondary_cta_two_label != blank -%}
-          <span class="amr-hero__sep" aria-hidden="true">·</span>
-          <a
-            href="{{ section.settings.secondary_cta_two_link | default: '#' }}"
-            class="amr-link amr-link--understated"
-          >
-            {{ section.settings.secondary_cta_two_label }}
-          </a>
-        {%- endif -%}
-      </div>
+      {%- if section.settings.secondary_cta_one_label != blank -%}
+        <a href="{{ section.settings.secondary_cta_one_link | default: '#' }}" class="amr-link amr-link--understated">
+          {{ section.settings.secondary_cta_one_label }}
+        </a>
+      {%- endif -%}
+      {%- if section.settings.secondary_cta_two_label != blank -%}
+        <span aria-hidden="true" style="color: var(--amr-ink-mute);">·</span>
+        <a href="{{ section.settings.secondary_cta_two_link | default: '#' }}" class="amr-link amr-link--understated">
+          {{ section.settings.secondary_cta_two_label }}
+        </a>
+      {%- endif -%}
     </div>
   </div>
 
-  {%- if section.settings.foreground_image != blank -%}
-    <div class="amr-hero__media" aria-hidden="true">
+  <div class="amr-hero-split__media">
+    {%- if section.settings.hero_image != blank -%}
       <img
-        src="{{ section.settings.foreground_image | image_url: width: 1600 }}"
+        src="{{ section.settings.hero_image | image_url: width: 1600 }}"
         srcset="
-          {{ section.settings.foreground_image | image_url: width: 800 }} 800w,
-          {{ section.settings.foreground_image | image_url: width: 1200 }} 1200w,
-          {{ section.settings.foreground_image | image_url: width: 1600 }} 1600w,
-          {{ section.settings.foreground_image | image_url: width: 2000 }} 2000w
+          {{ section.settings.hero_image | image_url: width: 800 }} 800w,
+          {{ section.settings.hero_image | image_url: width: 1200 }} 1200w,
+          {{ section.settings.hero_image | image_url: width: 1600 }} 1600w,
+          {{ section.settings.hero_image | image_url: width: 2000 }} 2000w
         "
-        sizes="100vw"
-        width="{{ section.settings.foreground_image.width }}"
-        height="{{ section.settings.foreground_image.height }}"
-        alt=""
+        sizes="(min-width: 900px) 55vw, 100vw"
+        width="{{ section.settings.hero_image.width }}"
+        height="{{ section.settings.hero_image.height }}"
+        alt="{{ section.settings.hero_image.alt | default: 'AMR Cosmetics' }}"
         loading="eager"
         fetchpriority="high"
       >
-    </div>
-  {%- endif -%}
+    {%- else -%}
+      <div class="amr-hero-split__media-fallback" aria-hidden="true"></div>
+    {%- endif -%}
+  </div>
 </section>
 
 {% schema %}
@@ -120,107 +159,25 @@
   "tag": "section",
   "class": "amr-section amr-section--hero",
   "settings": [
-    {
-      "type": "header",
-      "content": "Identity"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_script_logo",
-      "label": "Show AMR script logo",
-      "default": true
-    },
-    {
-      "type": "image_picker",
-      "id": "script_logo",
-      "label": "AMR script logo (PNG with transparent background recommended)"
-    },
-    {
-      "type": "header",
-      "content": "Copy"
-    },
-    {
-      "type": "text",
-      "id": "eyebrow",
-      "label": "Eyebrow",
-      "default": "EST. AMR · HAIR & LIP"
-    },
-    {
-      "type": "text",
-      "id": "headline",
-      "label": "Headline",
-      "default": "Where healthy hair meets glossy lips."
-    },
-    {
-      "type": "textarea",
-      "id": "subline",
-      "label": "Subline",
-      "default": "Polished essentials for the everyday — soft on skin, kind to hair, made for shine."
-    },
-    {
-      "type": "header",
-      "content": "Calls to action"
-    },
-    {
-      "type": "text",
-      "id": "primary_cta_label",
-      "label": "Primary CTA label",
-      "default": "Shop Bestsellers"
-    },
-    {
-      "type": "url",
-      "id": "primary_cta_link",
-      "label": "Primary CTA link"
-    },
-    {
-      "type": "text",
-      "id": "secondary_cta_one_label",
-      "label": "Secondary CTA 1 label",
-      "default": "Hair Care"
-    },
-    {
-      "type": "url",
-      "id": "secondary_cta_one_link",
-      "label": "Secondary CTA 1 link"
-    },
-    {
-      "type": "text",
-      "id": "secondary_cta_two_label",
-      "label": "Secondary CTA 2 label",
-      "default": "Lip Care"
-    },
-    {
-      "type": "url",
-      "id": "secondary_cta_two_link",
-      "label": "Secondary CTA 2 link"
-    },
-    {
-      "type": "header",
-      "content": "Visual"
-    },
-    {
-      "type": "select",
-      "id": "background_style",
-      "label": "Background",
-      "options": [
-        { "value": "paper", "label": "Paper (white)" },
-        { "value": "paper-warm", "label": "Paper warm (off-white)" },
-        { "value": "paper-cool", "label": "Paper cool (cool off-white)" }
-      ],
-      "default": "paper-warm"
-    },
-    {
-      "type": "image_picker",
-      "id": "foreground_image",
-      "label": "Hero foreground image (optional)",
-      "info": "Large editorial composition. Leave empty for a pure type-led hero."
-    }
+    { "type": "header", "content": "Identity" },
+    { "type": "checkbox", "id": "show_script_logo", "label": "Show AMR mark", "default": true },
+    { "type": "image_picker", "id": "script_logo", "label": "AMR logo image (PNG, optional)", "info": "If empty, renders 'AMR / Cosmetics' in Arapey italic — matching the live store mark." },
+    { "type": "header", "content": "Copy" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "HAIR & LIP — EVERYDAY ESSENTIALS" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Where healthy hair meets glossy lips." },
+    { "type": "textarea", "id": "subline", "label": "Subline", "default": "Polished essentials for the everyday — soft on skin, kind to hair, made for shine." },
+    { "type": "header", "content": "Calls to action" },
+    { "type": "text", "id": "primary_cta_label", "label": "Primary CTA label", "default": "Shop Bestsellers" },
+    { "type": "url", "id": "primary_cta_link", "label": "Primary CTA link" },
+    { "type": "text", "id": "secondary_cta_one_label", "label": "Secondary CTA 1 label", "default": "Hair Care" },
+    { "type": "url", "id": "secondary_cta_one_link", "label": "Secondary CTA 1 link" },
+    { "type": "text", "id": "secondary_cta_two_label", "label": "Secondary CTA 2 label", "default": "Lip Care" },
+    { "type": "url", "id": "secondary_cta_two_link", "label": "Secondary CTA 2 link" },
+    { "type": "header", "content": "Hero image" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image (right side)", "info": "Large editorial composition — bundle, hero product, or lifestyle. Falls back to a cocoa gradient if empty." }
   ],
   "presets": [
-    {
-      "name": "AMR Hero",
-      "category": "AMR"
-    }
+    { "name": "AMR Hero", "category": "AMR" }
   ]
 }
 {% endschema %}

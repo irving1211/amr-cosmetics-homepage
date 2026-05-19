@@ -3,17 +3,16 @@
     "hero": {
       "type": "amr-hero",
       "settings": {
-        "eyebrow": "EST. AMR · HAIR & LIP",
+        "show_script_logo": true,
+        "eyebrow": "HAIR & LIP — EVERYDAY ESSENTIALS",
         "headline": "Where healthy hair meets glossy lips.",
         "subline": "Polished essentials for the everyday — soft on skin, kind to hair, made for shine.",
         "primary_cta_label": "Shop Bestsellers",
-        "primary_cta_link": "shopify://collections/bestsellers",
+        "primary_cta_link": "shopify://collections/all",
         "secondary_cta_one_label": "Hair Care",
         "secondary_cta_one_link": "shopify://collections/hair-care",
         "secondary_cta_two_label": "Lip Care",
-        "secondary_cta_two_link": "shopify://collections/lip-care",
-        "background_style": "paper-warm",
-        "show_script_logo": true
+        "secondary_cta_two_link": "shopify://collections/lip-care"
       }
     },
     "brand-intro": {
@@ -21,7 +20,7 @@
       "settings": {
         "eyebrow": "ABOUT AMR",
         "headline": "Two rituals. One feeling.",
-        "body": "AMR began with two small ideas worth doing well — care for hair that feels healthy, and a gloss that feels like you. Every product is shaped for the in-between moments: the slow morning, the second look, the easy reach for something soft. Considered, never complicated.",
+        "body": "<p>AMR began with two small ideas worth doing well — care for hair that feels healthy, and a gloss that feels like you. Every product is shaped for the in-between moments: the slow morning, the second look, the easy reach for something soft. Considered, never complicated.</p>",
         "pulled_quote": "A quiet kind of polish."
       }
     },
@@ -31,14 +30,14 @@
         "eyebrow": "SHOP",
         "headline": "Find your everyday.",
         "tile_one_label": "Hair Care",
-        "tile_one_subline": "Oils, masks, and scalp care for soft, healthy-looking hair.",
+        "tile_one_subline": "Oils and masks for soft, healthy-looking hair.",
         "tile_one_link": "shopify://collections/hair-care",
         "tile_two_label": "Lip Care",
-        "tile_two_subline": "Glosses and lip tones built for soft shine and easy wear.",
+        "tile_two_subline": "Glosses and lip tones built for soft, everyday shine.",
         "tile_two_link": "shopify://collections/lip-care",
-        "tile_three_label": "Sets & Rituals",
-        "tile_three_subline": "Curated pairings — for hair, for lips, or both.",
-        "tile_three_link": "shopify://collections/sets"
+        "tile_three_label": "The Bundle",
+        "tile_three_subline": "Hair + lip, together — the full AMR feeling.",
+        "tile_three_link": "shopify://products/amr-bundle"
       }
     },
     "featured-products": {
@@ -47,11 +46,21 @@
         "eyebrow": "BESTSELLERS",
         "headline": "The shortlist.",
         "subline": "Quietly loved, quickly reordered.",
-        "collection": "bestsellers",
         "products_per_row_desktop": 4,
         "view_all_label": "View All Products",
         "view_all_link": "shopify://collections/all"
-      }
+      },
+      "blocks": {
+        "p1": { "type": "product", "settings": { "eyebrow": "HAIR" } },
+        "p2": { "type": "product", "settings": { "eyebrow": "HAIR RITUAL" } },
+        "p3": { "type": "product", "settings": { "eyebrow": "LIPS" } },
+        "p4": { "type": "product", "settings": { "eyebrow": "LIPS" } },
+        "p5": { "type": "product", "settings": { "eyebrow": "LIPS" } },
+        "p6": { "type": "product", "settings": { "eyebrow": "LIPS" } },
+        "p7": { "type": "product", "settings": { "eyebrow": "LIPS" } },
+        "p8": { "type": "product", "settings": { "eyebrow": "SET" } }
+      },
+      "block_order": ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8"]
     },
     "why-amr": {
       "type": "amr-why",
@@ -86,37 +95,13 @@
         "right_cta_link": "shopify://collections/hair-care"
       }
     },
-    "routine": {
-      "type": "amr-routine",
-      "settings": {
-        "eyebrow": "SETS & RITUALS",
-        "headline": "Build your ritual.",
-        "subline": "Three curated pairings — designed to live together.",
-        "bundle_one_title": "The Hair Ritual",
-        "bundle_one_body": "Oil + mask. A weekly reset for soft, healthy-looking hair.",
-        "bundle_one_cta_label": "Shop the Hair Ritual",
-        "bundle_one_cta_link": "shopify://products/hair-ritual",
-        "bundle_two_title": "The Lip Edit",
-        "bundle_two_body": "Pink Gloss + Crystal Clear. Soft shine for every kind of day.",
-        "bundle_two_cta_label": "Shop the Lip Edit",
-        "bundle_two_cta_link": "shopify://products/lip-edit",
-        "bundle_three_title": "The Complete Ritual",
-        "bundle_three_body": "Hair + lip, together. The full AMR feeling.",
-        "bundle_three_cta_label": "Shop the Complete Ritual",
-        "bundle_three_cta_link": "shopify://products/complete-ritual"
-      }
-    },
     "testimonials": {
       "type": "amr-testimonials",
       "settings": {
         "eyebrow": "REVIEWS",
-        "headline": "What our community says.",
-        "review_one_quote": "The hair oil is a quiet favorite — soft, light, and I keep reaching for it.",
-        "review_one_author": "Sofía R.",
-        "review_two_quote": "The Pink Gloss is the one I keep in every bag. Soft shine, never sticky.",
-        "review_two_author": "Mia L.",
-        "review_three_quote": "Beautiful packaging, beautiful results. It feels like it was made with care.",
-        "review_three_author": "Andrea P."
+        "headline": "Loved by the AMR community.",
+        "placeholder_quote": "Real customer review will appear here once a reviews app is connected.",
+        "placeholder_note": "Reviews section is structured and ready — once a reviews app is installed, real customer quotes populate here automatically."
       }
     },
     "gallery": {
@@ -136,48 +121,12 @@
         "headline": "Questions, answered."
       },
       "blocks": {
-        "q1": {
-          "type": "question",
-          "settings": {
-            "question": "When will my order ship?",
-            "answer": "Orders are packed within 1–3 business days. You'll receive tracking by email as soon as your package is on its way."
-          }
-        },
-        "q2": {
-          "type": "question",
-          "settings": {
-            "question": "Do you ship internationally?",
-            "answer": "Yes — we ship to most countries. Shipping options and rates appear at checkout based on your address."
-          }
-        },
-        "q3": {
-          "type": "question",
-          "settings": {
-            "question": "What is your return policy?",
-            "answer": "Unopened products can be returned within 14 days of delivery. For hygiene reasons, opened lip and hair products cannot be returned. Reach out and we'll take care of you."
-          }
-        },
-        "q4": {
-          "type": "question",
-          "settings": {
-            "question": "Are AMR products safe for sensitive skin and scalps?",
-            "answer": "Our formulas are designed to feel comfortable for most skin types. We always recommend a patch test before first use. If you have a known sensitivity, check the ingredients on each product page."
-          }
-        },
-        "q5": {
-          "type": "question",
-          "settings": {
-            "question": "Can I use the hair oil daily?",
-            "answer": "Yes — the hair oil is light enough for daily wear. Many love it as a finishing oil on dry hair; it also works as a pre-wash treatment on damp ends."
-          }
-        },
-        "q6": {
-          "type": "question",
-          "settings": {
-            "question": "How do I reach you?",
-            "answer": "Email us at hello@amrcosmetics.com — we read every message and reply quickly."
-          }
-        }
+        "q1": { "type": "question", "settings": { "question": "When will my order ship?", "answer": "<p>Orders are packed within 1–3 business days. You'll receive tracking by email as soon as your package is on its way.</p>" } },
+        "q2": { "type": "question", "settings": { "question": "Do you ship internationally?", "answer": "<p>Yes — we ship to most countries. Shipping options and rates appear at checkout based on your address.</p>" } },
+        "q3": { "type": "question", "settings": { "question": "What is your return policy?", "answer": "<p>Unopened products can be returned within 14 days of delivery. For hygiene reasons, opened lip and hair products cannot be returned. Reach out and we'll take care of you.</p>" } },
+        "q4": { "type": "question", "settings": { "question": "Are AMR products safe for sensitive skin and scalps?", "answer": "<p>Our formulas are designed to feel comfortable for most skin types. We always recommend a patch test before first use. If you have a known sensitivity, check the ingredients on each product page.</p>" } },
+        "q5": { "type": "question", "settings": { "question": "Can I use the hair oil daily?", "answer": "<p>Yes — the hair oil is light enough for daily wear. Many love it as a finishing oil on dry hair; it also works as a pre-wash treatment on damp ends.</p>" } },
+        "q6": { "type": "question", "settings": { "question": "How do I reach you?", "answer": "<p>You can reach us through the contact form, or via Instagram at @amr.cosmeticss.</p>" } }
       },
       "block_order": ["q1", "q2", "q3", "q4", "q5", "q6"]
     },
@@ -200,7 +149,6 @@
     "featured-products",
     "why-amr",
     "gloss-growth",
-    "routine",
     "testimonials",
     "gallery",
     "faq",
