@@ -120,8 +120,15 @@
       >
     </a>
   {%- else -%}
-    <a href="{{ routes.root_url }}" class="amr-mark amr-mark--md" aria-label="{{ shop.name }} — home">
-      AMR<span class="amr-mark__sub">Cosmetics</span>
+    <a href="{{ routes.root_url }}" aria-label="{{ shop.name }} — home">
+      <img
+        src="{{ 'amr-logo.png' | asset_url }}"
+        alt="{{ shop.name }}"
+        width="568" height="270"
+        loading="eager"
+        fetchpriority="high"
+        style="width: clamp(110px, 14vw, 150px); height: auto; display: block;"
+      >
     </a>
   {%- endif -%}
 
@@ -136,8 +143,8 @@
 
 <aside class="amr-drawer" id="amr-mobile-drawer" aria-hidden="true" aria-label="Mobile navigation">
   <div class="amr-drawer__head">
-    <a href="{{ routes.root_url }}" class="amr-mark amr-mark--sm" aria-label="{{ shop.name }} — home">
-      AMR<span class="amr-mark__sub">Cosmetics</span>
+    <a href="{{ routes.root_url }}" aria-label="{{ shop.name }} — home">
+      <img src="{{ 'amr-logo.png' | asset_url }}" alt="{{ shop.name }}" width="568" height="270" style="width: 92px; height: auto; display: block;">
     </a>
     <button class="amr-drawer__close" type="button" aria-label="Close menu" data-amr-drawer-close>&times;</button>
   </div>

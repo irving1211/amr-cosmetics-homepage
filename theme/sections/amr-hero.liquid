@@ -92,9 +92,14 @@
           style="max-width: 320px; height: auto; display: block;"
         >
       {%- else -%}
-        <span class="amr-mark amr-mark--xl amr-hero-split__mark" aria-hidden="true">
-          AMR<span class="amr-mark__sub">Cosmetics</span>
-        </span>
+        <img
+          src="{{ 'amr-logo.png' | asset_url }}"
+          alt="{{ shop.name }}"
+          width="568" height="270"
+          loading="eager" fetchpriority="high"
+          style="width: clamp(220px, 30vw, 340px); height: auto; display: block;"
+          class="amr-hero-split__mark"
+        >
       {%- endif -%}
     {%- endif -%}
 

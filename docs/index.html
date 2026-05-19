@@ -14,34 +14,12 @@
 
   <link rel="stylesheet" href="amr-homepage.css">
   <style>
-    /* ===== AMR mark — Arapey italic (matches live store) ===== */
-    .amr-mark {
-      font-family: "Arapey", serif;
-      font-style: italic;
-      font-weight: 400;
-      letter-spacing: 0.02em;
-      color: var(--amr-ink);
-      line-height: 1;
-      display: inline-block;
-      text-decoration: none;
-    }
-    .amr-mark--xl { font-size: clamp(56px, 7vw, 96px); }
-    .amr-mark--lg { font-size: clamp(34px, 4vw, 44px); }
-    .amr-mark--md { font-size: clamp(26px, 3vw, 32px); }
-    .amr-mark--sm { font-size: 20px; }
-    .amr-mark__sub {
-      display: block;
-      font-family: var(--amr-font-body);
-      font-style: normal;
-      font-size: 0.36em;
-      font-weight: 500;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: var(--amr-ink);
-      margin-top: 0.3em;
-      line-height: 1;
-    }
-    .amr-mark--sm .amr-mark__sub { font-size: 0.55em; letter-spacing: 0.28em; margin-top: 0.35em; }
+    /* ===== AMR logo image ===== */
+    .amr-logo-img { display: block; height: auto; width: auto; }
+    .amr-logo-img--xl { width: clamp(220px, 30vw, 340px); }
+    .amr-logo-img--lg { width: clamp(140px, 16vw, 180px); }
+    .amr-logo-img--md { width: clamp(110px, 14vw, 150px); }
+    .amr-logo-img--sm { width: 92px; }
 
     /* ===== Announcement bar ===== */
     .amr-announce {
@@ -263,8 +241,8 @@
       <a href="#categories">Lip</a>
       <a href="#featured">All</a>
     </nav>
-    <a href="#top" class="amr-mark amr-mark--md" aria-label="AMR Cosmetics — home">
-      AMR<span class="amr-mark__sub">Cosmetics</span>
+    <a href="#top" aria-label="AMR Cosmetics — home">
+      <img src="images/amr-logo.png" alt="AMR Cosmetics" class="amr-logo-img amr-logo-img--md" width="568" height="270">
     </a>
     <nav class="amr-nav__right" aria-label="Account navigation">
       <a href="#" aria-label="Search">Search</a>
@@ -276,8 +254,8 @@
   <!-- Mobile drawer -->
   <aside class="amr-drawer" id="mobile-drawer" aria-hidden="true" aria-label="Mobile navigation">
     <div class="amr-drawer__head">
-      <a href="#top" class="amr-mark amr-mark--sm" aria-label="AMR Cosmetics — home">
-        AMR<span class="amr-mark__sub">Cosmetics</span>
+      <a href="#top" aria-label="AMR Cosmetics — home">
+        <img src="images/amr-logo.png" alt="AMR Cosmetics" class="amr-logo-img amr-logo-img--sm" width="568" height="270">
       </a>
       <button class="amr-drawer__close" type="button" aria-label="Close menu" data-amr-drawer-close>&times;</button>
     </div>
@@ -301,9 +279,7 @@
     <!-- ============ 01 HERO — image-led split ============ -->
     <section class="amr amr-hero-split" aria-labelledby="hero-h">
       <div class="amr-hero-split__copy">
-        <span class="amr-mark amr-mark--xl amr-hero-split__mark" aria-hidden="true">
-          AMR<span class="amr-mark__sub">Cosmetics</span>
-        </span>
+        <img src="images/amr-logo.png" alt="AMR Cosmetics" class="amr-logo-img amr-logo-img--xl amr-hero-split__mark" width="568" height="270" loading="eager" fetchpriority="high">
         <p class="amr-eyebrow amr-hero-split__eyebrow">HAIR &amp; LIP — EVERYDAY ESSENTIALS</p>
         <h1 id="hero-h" class="amr-hero-split__headline">Where healthy hair meets glossy lips.</h1>
         <p class="amr-body amr-hero-split__sub">Polished essentials for the everyday — soft on skin, kind to hair, made for shine.</p>
@@ -342,7 +318,7 @@
 
           <a class="amr-category-tile" href="#featured">
             <div class="amr-category-tile__media">
-              <img src="images/editorial-comp.jpg" alt="Hair Care" loading="lazy">
+              <img src="images/hair-mask-alt.jpg" alt="Hair Care" loading="lazy">
             </div>
             <div class="amr-category-tile__caption">
               <h3 class="amr-h3 amr-category-tile__label">Hair Care</h3>
@@ -541,7 +517,7 @@
         </article>
         <article class="amr-split__panel amr-split__panel--right">
           <div class="amr-split__media">
-            <img src="images/editorial-comp.jpg" alt="" loading="lazy">
+            <img src="images/hair-oil.jpg" alt="" loading="lazy">
           </div>
           <div class="amr-split__content">
             <p class="amr-eyebrow amr-split__eyebrow">HAIR</p>
@@ -663,8 +639,8 @@
   <footer class="amr-footer">
     <div class="amr-footer__grid">
       <div class="amr-footer__brand">
-        <a href="#top" class="amr-mark amr-mark--lg" aria-label="AMR Cosmetics — home">
-          AMR<span class="amr-mark__sub">Cosmetics</span>
+        <a href="#top" aria-label="AMR Cosmetics — home">
+          <img src="images/amr-logo.png" alt="AMR Cosmetics" class="amr-logo-img amr-logo-img--lg" width="568" height="270">
         </a>
         <p class="amr-footer__tag">Where healthy hair meets glossy lips.</p>
       </div>
